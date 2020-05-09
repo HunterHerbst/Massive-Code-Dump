@@ -18,11 +18,11 @@
   - [OpenCV](#python-opencv)
   - [Primes](#python-primes)
 
-## Brainfuck
+## [Brainfuck](/Brainfuck)
 
 This is just a compiler for [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck), written in C. It's basically a finished project at this point, and won't be updated any further. For more information, view the [Brainfuck README](/Brainfuck/README.md).
 
-## C
+## [C](/C_Programming)
 
 ### Linked Lists
 
@@ -40,7 +40,7 @@ TicTacToe in C. Pretty self-explanatory.
 
 C++ code will go here in the future when I eventually start using it.
 
-## Java
+## [Java](/Java)
 
 Most of these projects were made in Java 8, if the version differs, I'll say so.
 
@@ -52,11 +52,11 @@ Hello World in Java. On top of being a Hello World program, I also used it to le
 
 TicTacToe game written in Java. This has a computer opponent, which will try to play as aggressive as possible.
 
-## LaTeX
+## [LaTeX](/LaTeX)
 
 I've got some tests of the LaTeX language here. I might learn more in the future, but right now I'm working on other projects.
 
-## Python
+## [Python](/Python)
 
 Just some python, nothing much past that.
 
