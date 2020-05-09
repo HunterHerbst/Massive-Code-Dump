@@ -22,7 +22,7 @@
 
 This is just a compiler for [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck), written in C. It's basically a finished project at this point, and won't be updated any further. For more information, view the [Brainfuck README](/Brainfuck/README.md).
 
-## [C](/C&#32Programming/)
+## [C](</C Programming>)
 
 ### Linked Lists
 
