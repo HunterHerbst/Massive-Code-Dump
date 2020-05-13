@@ -9,6 +9,7 @@
   - [TicTacToe](#c-tictactoe)
 - [C++](#c++)
 - [Java](#java)
+  - [Conway's Game of Life](#java-conway)
   - [Hello World](#java-hello-world)
   - [TicTacToe](#java-tictactoe)
 - [LaTeX](#latex)
@@ -43,6 +44,10 @@ C++ code will go here in the future when I eventually start using it.
 ## [Java](/Java)
 
 Most of these projects were made in Java 8, if the version differs, I'll say so.
+
+### [Java Conway](/Java/Conway)
+
+Conway's Game of Life Swing Application. I made an entire readme for that project alone. View it [here](/Java/Conway/README.md).
 
 ### Java Hello World
 
