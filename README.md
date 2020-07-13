@@ -2,12 +2,15 @@
 
 ## Table of Contents
 
+- [Batch](#batch)
+  - [Best IDE](#best-ide)
 - [Brainfuck](#brainfuck)
 - [C](#c)
   - [Linked Lists](#linked-lists)
   - [Small TicTacToe](#small-c-tictactoe)
   - [TicTacToe](#c-tictactoe)
 - [C++](#c++)
+  - [Color Manipulation](#color-manipulation)
 - [Java](#java)
   - [Conway's Game of Life](#java-conway)
   - [Hello World](#java-hello-world)
@@ -18,6 +21,14 @@
   - [Neural Networks](#python-neural-networks)
   - [OpenCV](#python-opencv)
   - [Primes](#python-primes)
+
+## [Batch](/Batch)
+
+Just messing around and trying to refresh on how batch scripts worked. Also made a joke script that writes a java class and runs it.
+
+### Best IDE
+
+A joke project I used to make a YouTube video in which I used CMD as an "IDE".
 
 ## [Brainfuck](/Brainfuck)
 
@@ -39,7 +50,9 @@ TicTacToe in C. Pretty self-explanatory.
 
 ## C++
 
-C++ code will go here in the future when I eventually start using it.
+### Color Manipulation
+
+Simple program that plays around with using structs in C++
 
 ## [Java](/Java)
 
