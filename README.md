@@ -17,6 +17,7 @@
   - [Conway's Game of Life](#java-conway)
   - [Hello World](#java-hello-world)
   - [Lambda Stuff](#java-lambda-stuff)
+  - [Object Serialization](#java-object-serialization)
   - [TicTacToe](#java-tictactoe)
 - [LaTeX](#latex)
 - [Python](#python)
@@ -84,6 +85,10 @@ Hello World in Java. On top of being a Hello World program, I also used it to le
 ### Java Lambda Stuff
 
 Quick and short program to learn about Lambdas in Java.
+
+### Java Object Serialization
+
+A small program I made so I can reference later when I forget how to serialize objects and send them to a file in Java.
 
 ### Java TicTacToe
 
