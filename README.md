@@ -9,6 +9,7 @@
   - [Linked Lists](#linked-lists)
   - [Small TicTacToe](#small-c-tictactoe)
   - [TicTacToe](#c-tictactoe)
+  - [Wallis Formula](#wallis-formula)
 - [C++](#c++)
   - [Color Manipulation](#color-manipulation)
 - [Java](#java)
@@ -47,6 +48,10 @@ TicTacToe in C, written in as small a file I could manage. There's probably a lo
 ### C TicTacToe
 
 TicTacToe in C. Pretty self-explanatory.
+
+### Wallis Formula
+
+The [Wallis Formula](https://en.wikipedia.org/wiki/Wallis_product) is a mathematical formula used to estimate pi. This program just asks the user to enter the number of terms they want to use to estimate the value of pi. More terms will result in a more precise estimation.
 
 ## C++
 
