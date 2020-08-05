@@ -9,19 +9,25 @@
   - [Linked Lists](#linked-lists)
   - [Small TicTacToe](#small-c-tictactoe)
   - [TicTacToe](#c-tictactoe)
-  - [Wallis Formula](#wallis-formula)
+  - [Wallis Formula](#c-wallis-formula)
 - [C++](#c++)
   - [Color Manipulation](#color-manipulation)
+  - [Hello World](#c++-hello-world)
 - [Java](#java)
   - [Conway's Game of Life](#java-conway)
   - [Hello World](#java-hello-world)
+  - [Lambda Stuff](#java-lambda-stuff)
   - [TicTacToe](#java-tictactoe)
 - [LaTeX](#latex)
 - [Python](#python)
   - [Hello](#python-hello)
+  - [Ice Cream Kiosk](#python-ice-cream-kiosk)
   - [Neural Networks](#python-neural-networks)
   - [OpenCV](#python-opencv)
   - [Primes](#python-primes)
+  - [Square Root Algorithm](#python-square-root-algorithm)
+  - [Wallis Formula](#python-wallis-formula)
+  - [Wichmann Hill RNG](#python-wichmann-hill-rng)
 
 ## [Batch](/Batch)
 
@@ -49,15 +55,19 @@ TicTacToe in C, written in as small a file I could manage. There's probably a lo
 
 TicTacToe in C. Pretty self-explanatory.
 
-### Wallis Formula
+### C Wallis Formula
 
 The [Wallis Formula](https://en.wikipedia.org/wiki/Wallis_product) is a mathematical formula used to estimate pi. This program just asks the user to enter the number of terms they want to use to estimate the value of pi. More terms will result in a more precise estimation.
 
-## C++
+## [C++](/C++)
 
 ### Color Manipulation
 
 Simple program that plays around with using structs in C++
+
+### C++ Hello World
+
+Hello World in C++.
 
 ## [Java](/Java)
 
@@ -70,6 +80,10 @@ Conway's Game of Life Swing Application. I made an entire readme for that projec
 ### Java Hello World
 
 Hello World in Java. On top of being a Hello World program, I also used it to learn how to make an executable `.jar` program.
+
+### Java Lambda Stuff
+
+Quick and short program to learn about Lambdas in Java.
 
 ### Java TicTacToe
 
@@ -87,6 +101,10 @@ Just some python, nothing much past that.
 
 Hello World in Python.
 
+### Python Ice Cream Kiosk
+
+Program made when helping a friend with code.
+
 ### Python Neural Networks
 
 The beginnings of trying to learn how to create neural networks. I don't think I got too far with this, but might revisit in the future.
@@ -98,3 +116,15 @@ Playing around with the OpenCV library.
 ### Python Primes
 
 Program that generates only prime numbers.
+
+### Python Square Root Algorithm
+
+Simple sqaure root algorithm. Made when trying to help a friend with code.
+
+### Python Wallis Formula
+
+[Wallis Formula](https://en.wikipedia.org/wiki/Wallis_product) done in Python.
+
+### Python Wichmann Hill RNG
+
+[Wichmann Hill](https://en.wikipedia.org/wiki/Wichmann%E2%80%93Hill) RNG done in Python.
