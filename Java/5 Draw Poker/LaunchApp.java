@@ -16,7 +16,8 @@ public class LaunchApp {
         g.deal();
         System.out.println( g );
         System.out.println("--------------------");
-        g.sortBySuit();
+        g.sort( Game.byValue );
+        g.sort( Game.bySuit );
         System.out.println("--------------------");
         System.out.println( g );
     }

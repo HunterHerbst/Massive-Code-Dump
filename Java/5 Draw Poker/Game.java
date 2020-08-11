@@ -1,7 +1,11 @@
 import java.util.Arrays;
+import java.util.Comparator;
 
 public final class Game {
     
+    public static final Comparator<Card> bySuit = (a,b) -> (a.getSuit() - b.getSuit());
+    public static final Comparator<Card> byValue = (a,b) -> (a.getValue() - b.getValue());
+
     private final Deck d;
     private Card[] hand;
 
@@ -22,47 +26,8 @@ public final class Game {
             hand[index] = null;
     }
 
-    public final void sortBySuit() {
-        Card[] sorted = new Card[5];
-        for( int i = 0; i < 5; i++ ) {
-            for( int j = 0; j < 5; j++ ) {
-                if( sorted[j] != null && sorted[j].getSuit() > hand[i].getSuit() ) {
-                    for( int k = 4; k > j; k-- ) {
-                        sorted[k] = sorted[k-1];
-                    }
-                    sorted[j+1] = sorted[j];
-                    sorted[j] = hand[i];
-                    break;
-                }
-                else if( sorted[j] == null ) {
-                    sorted[j] = hand[i];
-                    break;
-                }
-            }
-        }
-        hand = sorted;
-    }
-
-    public final void sortByValue() {
-        // Card[] sorted = new Card[5];
-        // for( int i = 0; i < 5; i++ ) {
-        //     for( int j = 0; j < 5; j++ ) {
-        //         if( sorted[j] != null && sorted[j].getValue() > hand[i].getValue() ) {
-        //             for( int k = 4; k > j; k-- ) {
-        //                 sorted[k] = sorted[k-1];
-        //             }
-        //             sorted[j+1] = sorted[j];
-        //             sorted[j] = hand[i];
-        //             break;
-        //         }
-        //         else if( sorted[j] == null ) {
-        //             sorted[j] = hand[i];
-        //             break;
-        //         }
-        //     }
-        // }
-        // hand = sorted;
-        Arrays.sort(hand, (a, b) -> (a.getValue() - b.getValue()));
+    public final void sort( Comparator<Card> comparator ) {
+        Arrays.sort( hand, comparator );
     }
 
     private final int getWinState() {
