@@ -20,5 +20,6 @@ public class LaunchApp {
         g.sort( Game.bySuit );
         System.out.println("--------------------");
         System.out.println( g );
+        System.out.println( g.calculateWinMult() );
     }
 }
