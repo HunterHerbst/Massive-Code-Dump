@@ -2,7 +2,9 @@ import java.util.Arrays;
 import java.util.Comparator;
 
 public final class Game {
-    
+    private enum WinState {
+        RoyalFlush, StraightFlush, FourKind, FullHouse, Flush, Straight, ThreeKind, TwoPair, TwoKind, Crap
+    }
     public static final Comparator<Card> bySuit = (a,b) -> (a.getSuit() - b.getSuit());
     public static final Comparator<Card> byValue = (a,b) -> (a.getValue() - b.getValue());
 
@@ -24,6 +26,12 @@ public final class Game {
     public final void discard( final int index ) {
         if( index > -1 && index < 5 )
             hand[index] = null;
+    }
+
+    public final void discard( final boolean[] cardsToDiscard ) {
+        for( int i = 0; i < 5; i++ )
+            if( cardsToDiscard[i] )
+                hand[i] = null;
     }
 
     public final void sort( Comparator<Card> comparator ) {
@@ -98,69 +106,70 @@ public final class Game {
         return false;
     }
 
-    private final int getWinState() {
+    private final WinState getWinState() {
         this.sort( bySuit );
         this.sort( byValue );
 
         //Royal Flush and Straight Flush
         if( allSameSuit() )
             if( areRoyalOrder() )
-                return 0;
+                return WinState.RoyalFlush;
             else if( areConsecutive() )
-                return 1;
+                return WinState.StraightFlush;
 
         //Four of a Kind
         if( isFourOfAKind() )
-            return 2;
+            return WinState.FourKind;
         
         //Full House
         if( isFullHouse() )
-            return 3;
+            return WinState.FullHouse;
 
         //Flush
         if( allSameSuit() )
-            return 4;
+            return WinState.Flush;
 
         //Straight
         if( areConsecutive() )
-            return 5;
+            return WinState.Straight;
 
         //Three of a Kind
         if( isThreeOfAKind() )
-            return 6;
+            return WinState.ThreeKind;
         
         //Two Pair
         if( isTwoPair() )
-            return 7;
+            return WinState.TwoPair;
 
         //Two of a Kind
         if( isTwoOfAKind() )
-            return 8;
+            return WinState.TwoKind;
         
         //Crap Hand
-        return 9;
+        return WinState.Crap;
     }
 
     public final int calculateWinMult() {
         switch( getWinState() ) {
-            case 0:
+            case RoyalFlush:
                 return 50;
-            case 1:
+            case StraightFlush:
                 return 30;
-            case 2:
+            case FourKind:
                 return 15;
-            case 3:
+            case FullHouse:
                 return 10;
-            case 4:
+            case Flush:
                 return 7;
-            case 5:
+            case Straight:
                 return 5;
-            case 6:
+            case ThreeKind:
                 return 3;
-            case 7:
+            case TwoPair:
                 return 2;
-            case 8:
+            case TwoKind:
                 return 1;
+            case Crap:
             default:
                 return 0;
         }

@@ -10,16 +10,6 @@ public class LaunchApp {
             System.out.println( "Unable to set look and feel to system default." );
         }
         //Launch the Poker App
-        //SwingUtilities.invokeLater( () -> new PokerApp() );
-
-        Game g = new Game();
-        g.deal();
-        System.out.println( g );
-        System.out.println("--------------------");
-        g.sort( Game.byValue );
-        g.sort( Game.bySuit );
-        System.out.println("--------------------");
-        System.out.println( g );
-        System.out.println( g.calculateWinMult() );
+        SwingUtilities.invokeLater( () -> new PokerApp() );
     }
 }
