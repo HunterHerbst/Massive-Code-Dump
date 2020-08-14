@@ -17,6 +17,10 @@ public final class Game {
         hand = new Card[5];
     }
 
+    public final Card[] getHand() {
+        return hand;
+    }
+
     public final void deal() {
         for( int i = 0; i < 5; i++ )
             if( hand[i] == null )
