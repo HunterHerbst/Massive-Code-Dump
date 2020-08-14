@@ -1,5 +1,3 @@
-import java.awt.ComponentOrientation;
-
 import javax.swing.*;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EtchedBorder;
@@ -14,8 +12,7 @@ public class PokerApp extends JFrame {
     private JButton incBetButton, decBetButton, betButton;
     private JLabel pointsLabel, betLabel;
     private JPanel bettingPanel;
-    private JTextArea pointTextArea;
-    private JTextPane betTextPane;
+    private JTextPane betTextPane, pointsTextPane;
 
     private Game g;
     private int bet, points;
@@ -35,6 +32,7 @@ public class PokerApp extends JFrame {
         
         bettingPanel = new JPanel();
         betLabel = new JLabel( "Bet Amount" );
+        pointsLabel = new JLabel( "Points" );
         decBetButton = new JButton( "-" );
         incBetButton = new JButton( "+" );
         betButton = new JButton( "Bet" );
@@ -45,6 +43,13 @@ public class PokerApp extends JFrame {
         betTextPane.setParagraphAttributes( betTextPaneAttributes, true );
         betTextPane.setText( String.valueOf( bet ) );
         betTextPane.setEditable( false );
+
+        pointsTextPane = new JTextPane();
+        SimpleAttributeSet pointTextPaneAttributes = new SimpleAttributeSet();
+        StyleConstants.setAlignment( pointTextPaneAttributes, StyleConstants.ALIGN_CENTER );
+        pointsTextPane.setParagraphAttributes( pointTextPaneAttributes, true );
+        pointsTextPane.setText( String.valueOf( points ) );
+        pointsTextPane.setEditable( false );
 
         this.setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
         this.setTitle( "5 Draw Poker" );
@@ -73,6 +78,8 @@ public class PokerApp extends JFrame {
             .addContainerGap()
             .addGroup(
                 bettingLayout.createParallelGroup( GroupLayout.Alignment.CENTER, true )
+                .addComponent( pointsLabel )
+                .addComponent( pointsTextPane )
                 .addComponent( betLabel )
                 .addComponent( betTextPane )
                 .addGroup( GroupLayout.Alignment.CENTER, 
@@ -87,6 +94,9 @@ public class PokerApp extends JFrame {
         bettingLayout.setVerticalGroup(
             bettingLayout.createSequentialGroup()
             .addContainerGap()
+            .addComponent( pointsLabel )
+            .addComponent( pointsTextPane )
+            .addPreferredGap( ComponentPlacement.RELATED )
             .addComponent( betLabel )
             .addComponent( betTextPane )
             .addGroup(
