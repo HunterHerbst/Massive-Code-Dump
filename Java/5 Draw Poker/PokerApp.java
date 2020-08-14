@@ -15,6 +15,7 @@ public class PokerApp extends JFrame {
     private JPanel bettingPanel, cardsPanel;
     private JTextPane betTextPane, pointsTextPane;
     private JTextPane[] cardTextPanes;
+    private JToggleButton[] holdButtons;
 
     private Game g;
     private int bet, points;
@@ -27,8 +28,6 @@ public class PokerApp extends JFrame {
 
         initComponents();
         initListeners();
-
-        g.deal();
     }
 
     private void initComponents() {
@@ -56,7 +55,8 @@ public class PokerApp extends JFrame {
 
         cardsPanel = new JPanel();
 
-        setUpCardPanes();
+        setupCardPanes();
+        setupHoldButtons();
 
         this.setDefaultCloseOperation( WindowConstants.EXIT_ON_CLOSE );
         this.setTitle( "5 Draw Poker" );
@@ -85,6 +85,7 @@ public class PokerApp extends JFrame {
             .addContainerGap()
         );
 
+        //TODO update betting layout to set maximum size of text areas
         bettingLayout = new GroupLayout( bettingPanel );
         bettingPanel.setLayout( bettingLayout );
         bettingLayout.setHorizontalGroup(
@@ -135,21 +136,46 @@ public class PokerApp extends JFrame {
                 .addComponent( cardTextPanes[3] )
                 .addComponent( cardTextPanes[4] )
             )
+            .addGroup(
+                cardsLayout.createParallelGroup( Alignment.CENTER )
+                .addComponent( holdButtons[0] )
+                .addComponent( holdButtons[1] )
+                .addComponent( holdButtons[2] )
+                .addComponent( holdButtons[3] )
+                .addComponent( holdButtons[4] )
+            )
             .addContainerGap()
         );
         cardsLayout.setVerticalGroup(
             cardsLayout.createSequentialGroup()
             .addContainerGap()
-            .addComponent( cardTextPanes[0] )
-            .addPreferredGap( ComponentPlacement.RELATED )
-            .addComponent( cardTextPanes[1] )
-            .addPreferredGap( ComponentPlacement.RELATED )
-            .addComponent( cardTextPanes[2] )
-            .addPreferredGap( ComponentPlacement.RELATED )
-            .addComponent( cardTextPanes[3] )
-            .addPreferredGap( ComponentPlacement.RELATED )
-            .addComponent( cardTextPanes[4] )
-            .addPreferredGap( ComponentPlacement.RELATED )
+            .addGroup(
+                cardsLayout.createParallelGroup()
+                .addGroup(
+                    cardsLayout.createSequentialGroup()
+                    .addComponent( cardTextPanes[0] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( cardTextPanes[1] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( cardTextPanes[2] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( cardTextPanes[3] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( cardTextPanes[4] )
+                )
+                .addGroup(
+                    cardsLayout.createSequentialGroup()
+                    .addComponent( holdButtons[0] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( holdButtons[1] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( holdButtons[2] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( holdButtons[3] )
+                    .addPreferredGap( ComponentPlacement.RELATED )
+                    .addComponent( holdButtons[4] )
+                )
+            )
             .addContainerGap()
         );
 
@@ -158,20 +184,12 @@ public class PokerApp extends JFrame {
     }
 
     private final void initListeners() {
-        // testButton.addActionListener(
-        //     new ActionListener() {
-        //         @Override
-        //         public void actionPerformed( ActionEvent e ) {
-                    
-        //         }
-        //     }
-        // );
-
         decBetButton.addActionListener(
             l -> {
                 if( bet > 1 )
                     bet--;
                 betTextPane.setText( String.valueOf( bet ) );
+                System.out.println( decBetButton.getSize() );
             }
         );
 
@@ -182,9 +200,19 @@ public class PokerApp extends JFrame {
                 betTextPane.setText( String.valueOf( bet ) );
             }
         );
+
+        betButton.addActionListener(
+            l -> {
+                g.deal();
+                updateHandCards();
+                pack();
+            }
+        );
+
+        //TODO add action listeners for hold buttons
     }
 
-    private final void setUpCardPanes() {
+    private final void setupCardPanes() {
         cardTextPanes = new JTextPane[5];
         SimpleAttributeSet cardTextPaneAttributes = new SimpleAttributeSet();
         StyleConstants.setAlignment( cardTextPaneAttributes, StyleConstants.ALIGN_CENTER );
@@ -195,6 +223,12 @@ public class PokerApp extends JFrame {
             cardTextPanes[i].setEditable( false );
         }
         updateHandCards();
+    }
+
+    private final void setupHoldButtons() {
+        holdButtons = new JToggleButton[5];
+        for( int i = 0; i < 5; i++ )
+            holdButtons[i] = new JToggleButton( "Hold" + (i+1) );
     }
 
     private final void updateHandCards() {
