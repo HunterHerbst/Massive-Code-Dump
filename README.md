@@ -10,16 +10,13 @@
   - [Small TicTacToe](#small-c-tictactoe)
   - [TicTacToe](#c-tictactoe)
   - [Wallis Formula](#c-wallis-formula)
-- [C++](#c++)
-  - [Color Manipulation](#color-manipulation)
-  - [Hello World](#c++-hello-world)
 - [Java](#java)
+  - [5 Draw Poker](#java-poker)
   - [Conway's Game of Life](#java-conway)
   - [Hello World](#java-hello-world)
   - [Lambda Stuff](#java-lambda-stuff)
   - [Object Serialization](#java-object-serialization)
   - [TicTacToe](#java-tictactoe)
-- [LaTeX](#latex)
 - [Python](#python)
   - [Hello](#python-hello)
   - [Ice Cream Kiosk](#python-ice-cream-kiosk)
@@ -42,7 +39,7 @@ A joke project I used to make a YouTube video in which I used CMD as an "IDE".
 
 This is just a compiler for [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck), written in C. It's basically a finished project at this point, and won't be updated any further. For more information, view the [Brainfuck README](/Brainfuck/README.md).
 
-## [C](</C Programming>)
+## [C](/C)
 
 ### Linked Lists
 
@@ -60,19 +57,13 @@ TicTacToe in C. Pretty self-explanatory.
 
 The [Wallis Formula](https://en.wikipedia.org/wiki/Wallis_product) is a mathematical formula used to estimate pi. This program just asks the user to enter the number of terms they want to use to estimate the value of pi. More terms will result in a more precise estimation.
 
-## [C++](/C++)
-
-### Color Manipulation
-
-Simple program that plays around with using structs in C++
-
-### C++ Hello World
-
-Hello World in C++.
-
 ## [Java](/Java)
 
 Most of these projects were made in Java 8, if the version differs, I'll say so.
+
+### Java Poker
+
+Making a 5 draw poker swing application in Java.
 
 ### [Java Conway](/Java/Conway)
 
@@ -93,10 +84,6 @@ A small program I made so I can reference later when I forget how to serialize o
 ### Java TicTacToe
 
 TicTacToe game written in Java. This has a computer opponent, which will try to play as aggressive as possible.
-
-## [LaTeX](/LaTeX)
-
-I've got some tests of the LaTeX language here. I might learn more in the future, but right now I'm working on other projects.
 
 ## [Python](/Python)
 
