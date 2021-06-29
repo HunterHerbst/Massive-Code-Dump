@@ -1,0 +1,13 @@
+{
+  "number": 1,
+  "name": "Hunter",
+  "info": "The developer of this code.",
+  "numList": [
+    3,
+    5,
+    67,
+    2,
+    45,
+    6
+  ]
+}
