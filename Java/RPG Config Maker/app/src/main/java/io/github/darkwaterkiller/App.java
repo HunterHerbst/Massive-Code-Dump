@@ -6,20 +6,200 @@ package io.github.darkwaterkiller;
 import javax.swing.*;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.border.EtchedBorder;
+
+import java.awt.Dimension;
+
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+
+import com.google.gson.*;
 
 public class App extends JFrame {
 
-    private GroupLayout mainLayout;
+    public static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
+
+    private GroupLayout layout,
+        meleeWeaponLayout;
+    
+    private JTabbedPane mainSelectorPanel;
+    
+    private JPanel meleeWeaponPanel;
+    
+    private JButton closeButton,
+        saveButton;
+    
+    private JLabel meleeWeaponNameLabel,
+        meleeWeaponDamageLabel,
+        meleeWeaponSpeedLabel,
+        meleeWeaponWeightLabel,
+        meleeWeaponValueLabel;
+    
+    private JTextField meleeWeaponNameField,
+        meleeWeaponDamageField,
+        meleeWeaponSpeedField,
+        meleeWeaponWeightField,
+        meleeWeaponValueField;
 
     public App() {
-
+        this.setTitle("Config Creator");
+        this.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        this.setResizable(false);
 
         initComponents();
+        initListeners();
     }
 
     private void initComponents() {
+        //#init misc features
+        closeButton = new JButton("Close");
+        saveButton = new JButton("Save");
+        meleeWeaponNameLabel = new JLabel("Name");
+        meleeWeaponNameField = new JTextField();
+        meleeWeaponNameField.setMinimumSize(new Dimension(150, meleeWeaponNameField.getHeight()));
+        meleeWeaponDamageLabel = new JLabel("Damage");
+        meleeWeaponDamageField = new JTextField();
+        meleeWeaponDamageField.setMinimumSize(new Dimension(150, meleeWeaponDamageField.getHeight()));
+        meleeWeaponSpeedLabel = new JLabel("Speed");
+        meleeWeaponSpeedField = new JTextField();
+        meleeWeaponSpeedField.setMinimumSize(new Dimension(150, meleeWeaponSpeedField.getHeight()));
+        meleeWeaponWeightLabel = new JLabel("Weight");
+        meleeWeaponWeightField = new JTextField();
+        meleeWeaponWeightField.setMinimumSize(new Dimension(150, meleeWeaponWeightField.getHeight()));
+        meleeWeaponValueLabel = new JLabel("Value");
+        meleeWeaponValueField = new JTextField();
+        meleeWeaponValueField.setMinimumSize(new Dimension(150, meleeWeaponValueField.getHeight()));
         
+        //#make the selector panel
+        mainSelectorPanel = new JTabbedPane(JTabbedPane.TOP);
+
+        //#weapons panel
+        meleeWeaponPanel = new JPanel();
+        meleeWeaponLayout = new GroupLayout(meleeWeaponPanel);
+        meleeWeaponPanel.setLayout(meleeWeaponLayout);
+        meleeWeaponLayout.setHorizontalGroup(
+            meleeWeaponLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(
+                meleeWeaponLayout.createParallelGroup(Alignment.LEADING)
+                .addComponent(meleeWeaponNameLabel)
+                .addComponent(meleeWeaponNameField)
+                .addComponent(meleeWeaponDamageLabel)
+                .addComponent(meleeWeaponDamageField)
+                .addComponent(meleeWeaponSpeedLabel)
+                .addComponent(meleeWeaponSpeedField)
+                .addComponent(meleeWeaponWeightLabel)
+                .addComponent(meleeWeaponWeightField)
+                .addComponent(meleeWeaponValueLabel)
+                .addComponent(meleeWeaponValueField)
+            )
+            .addContainerGap()
+        );
+        meleeWeaponLayout.setVerticalGroup(
+            meleeWeaponLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(meleeWeaponNameLabel)
+            .addPreferredGap(ComponentPlacement.RELATED)
+            .addComponent(meleeWeaponNameField)
+            .addPreferredGap(ComponentPlacement.UNRELATED)
+            .addComponent(meleeWeaponDamageLabel)
+            .addPreferredGap(ComponentPlacement.RELATED)
+            .addComponent(meleeWeaponDamageField)
+            .addPreferredGap(ComponentPlacement.UNRELATED)
+            .addComponent(meleeWeaponSpeedLabel)
+            .addPreferredGap(ComponentPlacement.RELATED)
+            .addComponent(meleeWeaponSpeedField)
+            .addPreferredGap(ComponentPlacement.UNRELATED)
+            .addComponent(meleeWeaponWeightLabel)
+            .addPreferredGap(ComponentPlacement.RELATED)
+            .addComponent(meleeWeaponWeightField)
+            .addPreferredGap(ComponentPlacement.UNRELATED)
+            .addComponent(meleeWeaponValueLabel)
+            .addPreferredGap(ComponentPlacement.RELATED)
+            .addComponent(meleeWeaponValueField)
+            .addContainerGap()
+        );
+
+        //add panels to selector
+        mainSelectorPanel.addTab("M.Weapon", meleeWeaponPanel);
+
+        //#layout main
+        layout = new GroupLayout(this.getContentPane());
+        this.setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(
+                layout.createParallelGroup(Alignment.TRAILING)
+                .addComponent(mainSelectorPanel)
+                .addGroup(
+                    layout.createSequentialGroup()
+                    .addComponent(saveButton)
+                    .addPreferredGap(ComponentPlacement.UNRELATED)
+                    .addComponent(closeButton)
+                )
+            )
+            .addContainerGap()
+        );
+        layout.setVerticalGroup(
+            layout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(mainSelectorPanel)
+            .addPreferredGap(ComponentPlacement.UNRELATED)
+            .addGroup(
+                layout.createParallelGroup()
+                .addComponent(saveButton)
+                .addComponent(closeButton)
+            )
+            .addContainerGap()
+        );
+
+        pack();
+        this.setVisible(true);
+    }
+
+    private void initListeners() {
+        closeButton.addActionListener(l -> {
+            this.dispose();
+        });
+
+        saveButton.addActionListener(l -> {
+            switch(mainSelectorPanel.getSelectedIndex()) {
+                case 0:
+                    saveMeleeWeapon();
+                    break;
+                default:
+                    System.err.println("Error, selected tab does not have a save feature implemented");
+            }
+        });
+    }
+
+    private void saveMeleeWeapon() {
+        try {
+            MeleeWeapon tmp = new MeleeWeapon(
+                meleeWeaponNameField.getText(),
+                Integer.parseInt(meleeWeaponDamageField.getText()),
+                Integer.parseInt(meleeWeaponSpeedField.getText()),
+                Integer.parseInt(meleeWeaponWeightField.getText()),
+                Integer.parseInt(meleeWeaponValueField.getText())
+            );
+            String jsonString = gson.toJson(tmp);
+            writeToFile(jsonString, String.format("./configs/weapons/melee/MW_%s.json", tmp.getName()));
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.err.printf("Unable to parse melee weapon data\n");
+        }
+    }
+
+    private void writeToFile(String JSON, String filename) {
+        try{
+            //open, write, close
+            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
+            bw.write(JSON);
+            bw.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.err.printf("Could not save JSON data to file '%s'\n", filename);
+        }
     }
 
     public static void main(String[] args) {
@@ -31,6 +211,6 @@ public class App extends JFrame {
         }
 
         //Launch the poker app
-        SwingUtilities.invokeLater(()->new App());
+        SwingUtilities.invokeLater(() -> new App());
     }
 }
