@@ -12,6 +12,8 @@ int findMax(int* nums)
     //loop through the list of numbers
     for(int i = 0; i < (sizeof(nums) / sizeof(nums[0])); i++)
         if(max < nums[i]) max = nums[i];
+    //return the max number
+    return max;
 }
 
 int main(char** argv, int argc)
