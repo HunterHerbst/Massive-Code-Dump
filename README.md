@@ -41,9 +41,23 @@ This is just a compiler for [Brainfuck](https://en.wikipedia.org/wiki/Brainfuck)
 
 ## [C](/C)
 
+[README](/C/README.md)
+
+### Chess
+
+Game of chess, written in C.
+
 ### Linked Lists
 
 A basic program that tracks a linked list. The user can add and remove names from the list, and print the list out to see all names stored.
+
+### Massive Text File
+
+C program with the sole purpose of making text files that are multiple gigabytes in size.
+
+### Random Value Counter
+
+Generates and then counts the occurrences of random numbers. 
 
 ### Small C TicTacToe
 
