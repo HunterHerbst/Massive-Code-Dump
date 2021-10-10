@@ -18,20 +18,23 @@ int findMax(int* nums)
 
 void printGraph(int* nums)
 {
+    //print a small header the length of the longest bar
     printf("\t_");
     for(int i = 0; i < findMax(nums); i++)
         printf("_");
     
+    //iterate over the array
     for(int i = 0; i < MAX_NUM; i++)
     {
+        //if the current number occurred at least once, print a bar for it
         if(nums[i] > 0)
         {
             printf("\n%-03d\t|", i);
             for(int j = 0; j < nums[i]; j++)
             {
-                printf("#");
+                printf("#"); //each # is one occurence 
             }
-            printf("\t %d", nums[i]);
+            printf(" %d", nums[i]); //append the count to the end of the bar
         }
     }
 }
@@ -39,8 +42,8 @@ void printGraph(int* nums)
 void printUnused(int* nums)
 {
     printf("\nUnused numbers: ");
-    for(int i = 0; i < MAX_NUM; i++)
-        if(!nums[i]) printf("%d, ", i);
+    for(int i = 0; i < MAX_NUM; i++) //iterate over array
+        if(!nums[i]) printf("%d, ", i); //if val at index i is 0 print it
 }
 
 int main(char** argv, int argc)
