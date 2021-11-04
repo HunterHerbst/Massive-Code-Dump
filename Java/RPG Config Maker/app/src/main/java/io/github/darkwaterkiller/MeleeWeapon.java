@@ -7,7 +7,7 @@ import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class MeleeWeapon extends Weapon{
+public class MeleeWeapon extends Item {
 
     private static final Gson g = new GsonBuilder().setPrettyPrinting().create();
     private static Scanner filereader;
@@ -38,7 +38,7 @@ public class MeleeWeapon extends Weapon{
         } catch(Exception e) {
             //print the stacktrace, post an error to console, and return a null object
             e.printStackTrace();
-            System.err.printf("Could not load config from file '%s'", filename);
+            System.err.printf("Could not load config from file '%s'\n", filename);
             return null;
         }
     }
