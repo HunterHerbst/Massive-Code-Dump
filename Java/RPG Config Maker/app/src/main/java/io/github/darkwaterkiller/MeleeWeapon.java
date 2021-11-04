@@ -7,16 +7,15 @@ import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class MeleeWeapon {
+public class MeleeWeapon extends Weapon{
 
     private static final Gson g = new GsonBuilder().setPrettyPrinting().create();
     private static Scanner filereader;
 
-    private final String name;
     private final int damage, speed, weight, value;
 
     public MeleeWeapon(String name, int damage, int speed, int weight, int value) {
-        this.name = name;
+        super(name);
         this.damage = damage;
         this.speed = speed;
         this.weight = weight;
@@ -58,12 +57,11 @@ public class MeleeWeapon {
         } catch(Exception e) {
             //print the stacktrace, post an error to console, and return failure state
             e.printStackTrace();
-            System.err.printf("Could not write melee weapon '%s' to '%s'.\n", this.name, filename);
+            System.err.printf("Could not write melee weapon '%s' to '%s'.\n", this.getName(), filename);
             return false;
         }
     }
 
-    public String getName(){return this.name;}
     public int getDamage(){return this.damage;}
     public int getSpeed(){return this.speed;}
     public int getWeight(){return this.weight;}
@@ -71,7 +69,7 @@ public class MeleeWeapon {
 
     @Override
     public String toString() {
-        return this.name 
+        return this.getName()
         + ":\n\tDamage:\t" + this.damage 
         + "\n\tSpeed:\t" + this.speed
         + "\n\tWeight:\t" + this.weight

@@ -1,0 +1,10 @@
+{
+  "name": "Pea Shooter",
+  "damage": 0,
+  "rof": 1,
+  "accuracy": 1,
+  "weight": 1,
+  "value": 1,
+  "curCap": 1,
+  "maxCap": 1
+}

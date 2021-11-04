@@ -7,16 +7,15 @@ import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class RangedWeapon {
+public class RangedWeapon extends Weapon {
     
     private static final Gson g = new GsonBuilder().setPrettyPrinting().create();
     private static Scanner filereader;
 
-    private final String name;
     private int damage, rof, accuracy, weight, value, curCap, maxCap;
 
     public RangedWeapon(String name, int damage, int rof, int accuracy, int weight, int value, int curCap, int maxCap) {
-        this.name = name;
+        super(name);
         this.damage = damage;
         this.rof = rof;
         this.accuracy = accuracy;
@@ -61,12 +60,11 @@ public class RangedWeapon {
         } catch(Exception e) {
             //print the stacktrace, post an error to console, and return failure state
             e.printStackTrace();
-            System.err.printf("Could not write ranged weapon '%s' to '%s'.\n", this.name, filename);
+            System.err.printf("Could not write ranged weapon '%s' to '%s'.\n", this.getName(), filename);
             return false;
         }
     }
 
-    public String getName(){return this.name;}
     public int getDamage(){return this.damage;}
     public int getROF(){return this.rof;}
     public int getAccuracy(){return this.accuracy;}
@@ -77,7 +75,7 @@ public class RangedWeapon {
 
     @Override
     public String toString() {
-        return this.name
+        return this.getName()
         + ":\n\tDamage:\t" + this.damage
         + "\n\tRoF:\t" + this.rof
         + "\n\tAccuracy:\t" + this.accuracy
