@@ -19,11 +19,13 @@ public class App extends JFrame {
     public static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
     private GroupLayout layout,
-        meleeWeaponLayout;
+        meleeWeaponLayout,
+        rangedWeaponLayout;
     
     private JTabbedPane mainSelectorPanel;
     
-    private JPanel meleeWeaponPanel;
+    private JPanel meleeWeaponPanel,
+        rangedWeaponPanel;
     
     private JButton closeButton,
         saveButton;
@@ -34,11 +36,25 @@ public class App extends JFrame {
         meleeWeaponWeightLabel,
         meleeWeaponValueLabel;
     
+    private JLabel rangedWeaponNameLabel,
+        rangedWeaponDamageLabel,
+        rangedWeaponROFLabel,
+        rangedWeaponAccLabel,
+        rangedWeaponWeightLabel,
+        rangedWeaponValueLabel;
+
     private JTextField meleeWeaponNameField,
         meleeWeaponDamageField,
         meleeWeaponSpeedField,
         meleeWeaponWeightField,
         meleeWeaponValueField;
+
+    private JTextField rangedWeaponNameField,
+        rangedWeaponDamageField,
+        rangedWeaponROFField,
+        rangedWeaponAccField,
+        rangedWeaponWeightField,
+        rangedWeaponValueField;
 
     public App() {
         this.setTitle("Config Creator");
@@ -53,6 +69,8 @@ public class App extends JFrame {
         //#init misc features
         closeButton = new JButton("Close");
         saveButton = new JButton("Save");
+
+        //Melee Weapon
         meleeWeaponNameLabel = new JLabel("Name");
         meleeWeaponNameField = new JTextField();
         meleeWeaponNameField.setMinimumSize(new Dimension(150, meleeWeaponNameField.getHeight()));
@@ -69,6 +87,27 @@ public class App extends JFrame {
         meleeWeaponValueField = new JTextField();
         meleeWeaponValueField.setMinimumSize(new Dimension(150, meleeWeaponValueField.getHeight()));
         
+        //Ranged Weapon
+        rangedWeaponNameLabel = new JLabel("Name");
+        rangedWeaponNameField = new JTextField();
+        rangedWeaponNameField.setMinimumSize(new Dimension(150, rangedWeaponNameField.getHeight()));
+        rangedWeaponDamageLabel = new JLabel("Damage");
+        rangedWeaponDamageField = new JTextField();
+        rangedWeaponDamageField.setMinimumSize(new Dimension(150, rangedWeaponDamageField.getHeight()));
+        rangedWeaponROFLabel = new JLabel("Rate of Fire");
+        rangedWeaponROFField = new JTextField();
+        rangedWeaponROFField.setMinimumSize(new Dimension(150, rangedWeaponROFField.getHeight()));
+        rangedWeaponAccLabel = new JLabel("Accuracy");
+        rangedWeaponAccField = new JTextField();
+        rangedWeaponAccField.setMinimumSize(new Dimension(150, rangedWeaponAccField.getHeight()));
+        rangedWeaponWeightLabel = new JLabel("Weight");
+        rangedWeaponWeightField = new JTextField();
+        rangedWeaponWeightField.setMinimumSize(new Dimension(150, rangedWeaponWeightField.getHeight()));
+        rangedWeaponValueLabel = new JLabel("Value");
+        rangedWeaponValueField = new JTextField();
+        rangedWeaponValueField.setMinimumSize(new Dimension(150, rangedWeaponValueField.getHeight()));
+        
+
         //#make the selector panel
         mainSelectorPanel = new JTabbedPane(JTabbedPane.TOP);
 
@@ -119,8 +158,22 @@ public class App extends JFrame {
             .addContainerGap()
         );
 
+        rangedWeaponPanel = new JPanel();
+        rangedWeaponLayout = new GroupLayout(rangedWeaponPanel);
+        rangedWeaponPanel.setLayout(rangedWeaponLayout);
+        rangedWeaponLayout.setHorizontalGroup(
+            rangedWeaponLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(
+                rangedWeaponLayout.createParallelGroup(Alignment.LEADING)
+                .addComponent(rangedWeaponNameLabel)
+                .addComponent(rangedWeaponNameField)
+            )
+        );
+
         //add panels to selector
         mainSelectorPanel.addTab("M.Weapon", meleeWeaponPanel);
+        mainSelectorPanel.addTab("R.Weapon", rangedWeaponPanel);
 
         //#layout main
         layout = new GroupLayout(this.getContentPane());
@@ -158,14 +211,19 @@ public class App extends JFrame {
     }
 
     private void initListeners() {
+        //Close button ends application
         closeButton.addActionListener(l -> {
             this.dispose();
         });
 
+        //Save button saves the config file
         saveButton.addActionListener(l -> {
             switch(mainSelectorPanel.getSelectedIndex()) {
                 case 0:
                     saveMeleeWeapon();
+                    break;
+                case 1:
+                    System.err.println("Saving for r weapons not done yet");
                     break;
                 default:
                     System.err.println("Error, selected tab does not have a save feature implemented");
