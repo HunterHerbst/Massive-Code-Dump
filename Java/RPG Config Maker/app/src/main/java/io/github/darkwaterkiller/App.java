@@ -16,26 +16,36 @@ import com.google.gson.*;
 
 public class App extends JFrame {
 
+    //private static final int MINIMUM_TEXT_FIELD_HEIGHT = 20;
+    private static final Dimension STFD = new Dimension(150, 20); //Standard Text Field Dimension
+
+    //JSON creator
     public static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
 
+    //panel layouts
     private GroupLayout layout,
         meleeWeaponLayout,
         rangedWeaponLayout;
     
+    //main panel
     private JTabbedPane mainSelectorPanel;
     
+    //panels
     private JPanel meleeWeaponPanel,
         rangedWeaponPanel;
     
+    //main panel buttons
     private JButton closeButton,
         saveButton;
     
+    //melee weapon labels
     private JLabel meleeWeaponNameLabel,
         meleeWeaponDamageLabel,
         meleeWeaponSpeedLabel,
         meleeWeaponWeightLabel,
         meleeWeaponValueLabel;
     
+    //ranged weapon labels
     private JLabel rangedWeaponNameLabel,
         rangedWeaponDamageLabel,
         rangedWeaponROFLabel,
@@ -43,12 +53,14 @@ public class App extends JFrame {
         rangedWeaponWeightLabel,
         rangedWeaponValueLabel;
 
+    //melee weapon fields
     private JTextField meleeWeaponNameField,
         meleeWeaponDamageField,
         meleeWeaponSpeedField,
         meleeWeaponWeightField,
         meleeWeaponValueField;
 
+    //ranged weapon fields
     private JTextField rangedWeaponNameField,
         rangedWeaponDamageField,
         rangedWeaponROFField,
@@ -73,39 +85,50 @@ public class App extends JFrame {
         //Melee Weapon
         meleeWeaponNameLabel = new JLabel("Name");
         meleeWeaponNameField = new JTextField();
-        meleeWeaponNameField.setMinimumSize(new Dimension(150, meleeWeaponNameField.getHeight()));
+        meleeWeaponNameField.setMinimumSize(STFD);
+        meleeWeaponNameField.setMaximumSize(STFD);
         meleeWeaponDamageLabel = new JLabel("Damage");
         meleeWeaponDamageField = new JTextField();
-        meleeWeaponDamageField.setMinimumSize(new Dimension(150, meleeWeaponDamageField.getHeight()));
+        meleeWeaponDamageField.setMinimumSize(STFD);
+        meleeWeaponDamageField.setMaximumSize(STFD);
         meleeWeaponSpeedLabel = new JLabel("Speed");
         meleeWeaponSpeedField = new JTextField();
-        meleeWeaponSpeedField.setMinimumSize(new Dimension(150, meleeWeaponSpeedField.getHeight()));
+        meleeWeaponSpeedField.setMinimumSize(STFD);
+        meleeWeaponSpeedField.setMaximumSize(STFD);
         meleeWeaponWeightLabel = new JLabel("Weight");
         meleeWeaponWeightField = new JTextField();
-        meleeWeaponWeightField.setMinimumSize(new Dimension(150, meleeWeaponWeightField.getHeight()));
+        meleeWeaponWeightField.setMinimumSize(STFD);
+        meleeWeaponWeightField.setMaximumSize(STFD);
         meleeWeaponValueLabel = new JLabel("Value");
         meleeWeaponValueField = new JTextField();
-        meleeWeaponValueField.setMinimumSize(new Dimension(150, meleeWeaponValueField.getHeight()));
+        meleeWeaponValueField.setMinimumSize(STFD);
+        meleeWeaponValueField.setMaximumSize(STFD);
         
         //Ranged Weapon
         rangedWeaponNameLabel = new JLabel("Name");
         rangedWeaponNameField = new JTextField();
-        rangedWeaponNameField.setMinimumSize(new Dimension(150, rangedWeaponNameField.getHeight()));
+        rangedWeaponNameField.setMinimumSize(STFD);
+        rangedWeaponNameField.setMaximumSize(STFD);
         rangedWeaponDamageLabel = new JLabel("Damage");
         rangedWeaponDamageField = new JTextField();
-        rangedWeaponDamageField.setMinimumSize(new Dimension(150, rangedWeaponDamageField.getHeight()));
+        rangedWeaponDamageField.setMinimumSize(STFD);
+        rangedWeaponDamageField.setMaximumSize(STFD);
         rangedWeaponROFLabel = new JLabel("Rate of Fire");
         rangedWeaponROFField = new JTextField();
-        rangedWeaponROFField.setMinimumSize(new Dimension(150, rangedWeaponROFField.getHeight()));
+        rangedWeaponROFField.setMinimumSize(STFD);
+        rangedWeaponROFField.setMaximumSize(STFD);
         rangedWeaponAccLabel = new JLabel("Accuracy");
         rangedWeaponAccField = new JTextField();
-        rangedWeaponAccField.setMinimumSize(new Dimension(150, rangedWeaponAccField.getHeight()));
+        rangedWeaponAccField.setMinimumSize(STFD);
+        rangedWeaponAccField.setMaximumSize(STFD);
         rangedWeaponWeightLabel = new JLabel("Weight");
         rangedWeaponWeightField = new JTextField();
-        rangedWeaponWeightField.setMinimumSize(new Dimension(150, rangedWeaponWeightField.getHeight()));
+        rangedWeaponWeightField.setMinimumSize(STFD);
+        rangedWeaponWeightField.setMaximumSize(STFD);
         rangedWeaponValueLabel = new JLabel("Value");
         rangedWeaponValueField = new JTextField();
-        rangedWeaponValueField.setMinimumSize(new Dimension(150, rangedWeaponValueField.getHeight()));
+        rangedWeaponValueField.setMinimumSize(STFD);
+        rangedWeaponValueField.setMaximumSize(STFD);
         
 
         //#make the selector panel
@@ -168,8 +191,47 @@ public class App extends JFrame {
                 rangedWeaponLayout.createParallelGroup(Alignment.LEADING)
                 .addComponent(rangedWeaponNameLabel)
                 .addComponent(rangedWeaponNameField)
+                .addComponent(rangedWeaponDamageLabel)
+                .addComponent(rangedWeaponDamageField)
+                .addComponent(rangedWeaponROFLabel)
+                .addComponent(rangedWeaponROFField)
+                .addComponent(rangedWeaponAccLabel)
+                .addComponent(rangedWeaponAccField)
+                .addComponent(rangedWeaponWeightLabel)
+                .addComponent(rangedWeaponWeightField)
+                .addComponent(rangedWeaponValueLabel)
+                .addComponent(rangedWeaponValueField)
             )
+            .addContainerGap()
         );
+    rangedWeaponLayout.setVerticalGroup(
+        rangedWeaponLayout.createSequentialGroup()
+        .addContainerGap()
+        .addComponent(rangedWeaponNameLabel)
+        .addPreferredGap(ComponentPlacement.RELATED)
+        .addComponent(rangedWeaponNameField)
+        .addPreferredGap(ComponentPlacement.UNRELATED)
+        .addComponent(rangedWeaponDamageLabel)
+        .addPreferredGap(ComponentPlacement.RELATED)
+        .addComponent(rangedWeaponDamageField)
+        .addPreferredGap(ComponentPlacement.UNRELATED)
+        .addComponent(rangedWeaponROFLabel)
+        .addPreferredGap(ComponentPlacement.RELATED)
+        .addComponent(rangedWeaponROFField)
+        .addPreferredGap(ComponentPlacement.UNRELATED)
+        .addComponent(rangedWeaponAccLabel)
+        .addPreferredGap(ComponentPlacement.RELATED)
+        .addComponent(rangedWeaponAccField)
+        .addPreferredGap(ComponentPlacement.UNRELATED)
+        .addComponent(rangedWeaponWeightLabel)
+        .addPreferredGap(ComponentPlacement.RELATED)
+        .addComponent(rangedWeaponWeightField)
+        .addPreferredGap(ComponentPlacement.UNRELATED)
+        .addComponent(rangedWeaponValueLabel)
+        .addPreferredGap(ComponentPlacement.RELATED)
+        .addComponent(rangedWeaponValueField)
+        .addContainerGap()
+    );
 
         //add panels to selector
         mainSelectorPanel.addTab("M.Weapon", meleeWeaponPanel);
