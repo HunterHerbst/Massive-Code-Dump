@@ -7,27 +7,28 @@ import java.io.FileWriter;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class MeleeWeapon {
-
+public class RangedWeapon {
+    
     private static final Gson g = new GsonBuilder().setPrettyPrinting().create();
     private static Scanner filereader;
 
     private final String name;
-    private final int damage, speed, weight, value;
+    private final int damage, rof, accuracy, weight, value;
 
-    public MeleeWeapon(String name, int damage, int speed, int weight, int value) {
+    public RangedWeapon(String name, int damage, int rof, int accuracy, int weight, int value) {
         this.name = name;
         this.damage = damage;
-        this.speed = speed;
+        this.rof = rof;
+        this.accuracy = accuracy;
         this.weight = weight;
         this.value = value;
-    }  
+    }
 
-    public MeleeWeapon MeleeWeaponFromFile(String filename) {
+    public RangedWeapon RangedWeaponFromFile(String filename) {
         try {
             //open file and make scanner read from it
             filereader = new Scanner(new File(filename));
-            //shove file data into a string until EOF
+            //file data into a string until EOF
             String inputJson = "";
             while(filereader.hasNext())
                 inputJson += filereader.nextLine();
@@ -35,9 +36,9 @@ public class MeleeWeapon {
             filereader.close();
             filereader = null;
             //return the read json object
-            return g.fromJson(inputJson, MeleeWeapon.class);
+            return g.fromJson(inputJson, RangedWeapon.class);
         } catch(Exception e) {
-            //print the stacktrace, post an error to console, and return a null object
+            //print stacktrace, post an error to console, and return a null object
             e.printStackTrace();
             System.err.printf("Could not load config from file '%s'", filename);
             return null;
@@ -45,9 +46,9 @@ public class MeleeWeapon {
     }
 
     /**
-     * Write the object to file with the given name
+     * Write the object to a file with the given name
      * @param filename The name of the file to write the object to
-     * @return returns true if file writing was successful, false indicates failure to write file.
+     * @return returns true if the file writing was successful, false indicates failure to write file.
      */
     public boolean writeToFile(String filename) {
         try {
@@ -58,22 +59,24 @@ public class MeleeWeapon {
         } catch(Exception e) {
             //print the stacktrace, post an error to console, and return failure state
             e.printStackTrace();
-            System.err.printf("Could not write melee weapon '%s' to '%s'.\n", this.name, filename);
+            System.err.printf("Could not write ranged weapon '%s' to '%s'.\n", this.name, filename);
             return false;
         }
     }
 
     public String getName(){return this.name;}
     public int getDamage(){return this.damage;}
-    public int getSpeed(){return this.speed;}
+    public int getROF(){return this.rof;}
+    public int getAccuracy(){return this.accuracy;}
     public int getWeight(){return this.weight;}
     public int getValue(){return this.value;}
 
     @Override
     public String toString() {
-        return this.name 
-        + ":\n\tDamage:\t" + this.damage 
-        + "\n\tSpeed:\t" + this.speed
+        return this.name
+        + ":\n\tDamage:\t" + this.damage
+        + "\n\tRoF:\t" + this.rof
+        + "\n\tAccuracy:\t" + this.accuracy
         + "\n\tWeight:\t" + this.weight
         + "\n\tValue:\t" + this.value;
     }

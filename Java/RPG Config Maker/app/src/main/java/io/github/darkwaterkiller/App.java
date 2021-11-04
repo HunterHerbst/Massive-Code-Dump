@@ -285,7 +285,7 @@ public class App extends JFrame {
                     saveMeleeWeapon();
                     break;
                 case 1:
-                    System.err.println("Saving for r weapons not done yet");
+                    saveRangedWeapon();
                     break;
                 default:
                     System.err.println("Error, selected tab does not have a save feature implemented");
@@ -307,6 +307,15 @@ public class App extends JFrame {
         } catch(Exception e) {
             e.printStackTrace();
             System.err.printf("Unable to parse melee weapon data\n");
+        }
+    }
+
+    private void saveRangedWeapon() {
+        try {
+            
+        } catch(Exception e) {
+            e.printStackTrace();
+            System.err.printf("Unable to parse ranged weapon data\n");
         }
     }
 
