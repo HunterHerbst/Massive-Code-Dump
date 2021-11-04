@@ -18,6 +18,7 @@ public class App extends JFrame {
 
     //private static final int MINIMUM_TEXT_FIELD_HEIGHT = 20;
     private static final Dimension STFD = new Dimension(150, 20); //Standard Text Field Dimension
+    private static final Dimension ATFD = new Dimension(65, 20); //Ammo Text Field Dimension
 
     //JSON creator
     public static final Gson gson = new GsonBuilder().setPrettyPrinting().create();
@@ -51,7 +52,9 @@ public class App extends JFrame {
         rangedWeaponROFLabel,
         rangedWeaponAccLabel,
         rangedWeaponWeightLabel,
-        rangedWeaponValueLabel;
+        rangedWeaponValueLabel,
+        rangedWeaponAmmoLabel,
+        rangedWeaponAmmoSeparatorLabel;
 
     //melee weapon fields
     private JTextField meleeWeaponNameField,
@@ -66,7 +69,9 @@ public class App extends JFrame {
         rangedWeaponROFField,
         rangedWeaponAccField,
         rangedWeaponWeightField,
-        rangedWeaponValueField;
+        rangedWeaponValueField,
+        rangedWeaponCurAmmoField,
+        rangedWeaponMaxAmmoField;
 
     public App() {
         this.setTitle("Config Creator");
@@ -129,7 +134,14 @@ public class App extends JFrame {
         rangedWeaponValueField = new JTextField();
         rangedWeaponValueField.setMinimumSize(STFD);
         rangedWeaponValueField.setMaximumSize(STFD);
-        
+        rangedWeaponAmmoLabel = new JLabel("Ammo");
+        rangedWeaponCurAmmoField = new JTextField();
+        rangedWeaponCurAmmoField.setMinimumSize(ATFD);
+        rangedWeaponCurAmmoField.setMaximumSize(ATFD);
+        rangedWeaponMaxAmmoField = new JTextField();
+        rangedWeaponMaxAmmoField.setMinimumSize(ATFD);
+        rangedWeaponMaxAmmoField.setMaximumSize(ATFD);   
+        rangedWeaponAmmoSeparatorLabel = new JLabel("/");
 
         //#make the selector panel
         mainSelectorPanel = new JTabbedPane(JTabbedPane.TOP);
@@ -201,6 +213,15 @@ public class App extends JFrame {
                 .addComponent(rangedWeaponWeightField)
                 .addComponent(rangedWeaponValueLabel)
                 .addComponent(rangedWeaponValueField)
+                .addComponent(rangedWeaponAmmoLabel)
+                .addGroup(
+                    rangedWeaponLayout.createSequentialGroup()
+                    .addComponent(rangedWeaponCurAmmoField)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(rangedWeaponAmmoSeparatorLabel)
+                    .addPreferredGap(ComponentPlacement.RELATED)
+                    .addComponent(rangedWeaponMaxAmmoField)
+                )
             )
             .addContainerGap()
         );
@@ -230,6 +251,15 @@ public class App extends JFrame {
         .addComponent(rangedWeaponValueLabel)
         .addPreferredGap(ComponentPlacement.RELATED)
         .addComponent(rangedWeaponValueField)
+        .addPreferredGap(ComponentPlacement.UNRELATED)
+        .addComponent(rangedWeaponAmmoLabel)
+        .addPreferredGap(ComponentPlacement.RELATED)
+        .addGroup(
+            rangedWeaponLayout.createParallelGroup(Alignment.LEADING)
+            .addComponent(rangedWeaponCurAmmoField)
+            .addComponent(rangedWeaponAmmoSeparatorLabel)
+            .addComponent(rangedWeaponMaxAmmoField)
+        )
         .addContainerGap()
     );
 
@@ -318,7 +348,9 @@ public class App extends JFrame {
                 Integer.parseInt(rangedWeaponROFField.getText()),
                 Integer.parseInt(rangedWeaponAccField.getText()),
                 Integer.parseInt(rangedWeaponWeightField.getText()),
-                Integer.parseInt(rangedWeaponValueField.getText())
+                Integer.parseInt(rangedWeaponValueField.getText()),
+                Integer.parseInt(rangedWeaponCurAmmoField.getText()),
+                Integer.parseInt(rangedWeaponMaxAmmoField.getText())
             );
             String jsonString = gson.toJson(tmp);
             writeToFile(jsonString, String.format("./configs/weapons/ranged/RW_%s.json", tmp.getName()));

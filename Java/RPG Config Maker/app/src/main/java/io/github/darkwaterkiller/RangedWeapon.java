@@ -13,15 +13,17 @@ public class RangedWeapon {
     private static Scanner filereader;
 
     private final String name;
-    private final int damage, rof, accuracy, weight, value;
+    private int damage, rof, accuracy, weight, value, curCap, maxCap;
 
-    public RangedWeapon(String name, int damage, int rof, int accuracy, int weight, int value) {
+    public RangedWeapon(String name, int damage, int rof, int accuracy, int weight, int value, int curCap, int maxCap) {
         this.name = name;
         this.damage = damage;
         this.rof = rof;
         this.accuracy = accuracy;
         this.weight = weight;
         this.value = value;
+        this.curCap = curCap;
+        this.maxCap = maxCap;
     }
 
     public RangedWeapon RangedWeaponFromFile(String filename) {
@@ -70,6 +72,8 @@ public class RangedWeapon {
     public int getAccuracy(){return this.accuracy;}
     public int getWeight(){return this.weight;}
     public int getValue(){return this.value;}
+    public int getCurCap(){return this.curCap;}
+    public int getMaxCap(){return this.maxCap;}
 
     @Override
     public String toString() {
@@ -78,6 +82,7 @@ public class RangedWeapon {
         + "\n\tRoF:\t" + this.rof
         + "\n\tAccuracy:\t" + this.accuracy
         + "\n\tWeight:\t" + this.weight
-        + "\n\tValue:\t" + this.value;
+        + "\n\tValue:\t" + this.value
+        + "\n\tAmmo:\t" + this.curCap + "/" + this.maxCap;
     }
 }
