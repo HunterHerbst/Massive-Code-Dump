@@ -312,7 +312,16 @@ public class App extends JFrame {
 
     private void saveRangedWeapon() {
         try {
-            
+            RangedWeapon tmp = new RangedWeapon(
+                rangedWeaponNameField.getText(),
+                Integer.parseInt(rangedWeaponDamageField.getText()),
+                Integer.parseInt(rangedWeaponROFField.getText()),
+                Integer.parseInt(rangedWeaponAccField.getText()),
+                Integer.parseInt(rangedWeaponWeightField.getText()),
+                Integer.parseInt(rangedWeaponValueField.getText())
+            );
+            String jsonString = gson.toJson(tmp);
+            writeToFile(jsonString, String.format("./configs/weapons/ranged/RW_%s.json", tmp.getName()));
         } catch(Exception e) {
             e.printStackTrace();
             System.err.printf("Unable to parse ranged weapon data\n");
