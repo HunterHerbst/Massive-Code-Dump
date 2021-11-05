@@ -43,24 +43,24 @@ public class MeleeWeapon extends Item {
         }
     }
 
-    /**
-     * Write the object to file with the given name
-     * @param filename The name of the file to write the object to
-     * @return returns true if file writing was successful, false indicates failure to write file.
-     */
-    public boolean writeToFile(String filename) {
-        try {
-            //write object data to a file
-            g.toJson(this, new FileWriter(filename));
-            //return success state
-            return true;
-        } catch(Exception e) {
-            //print the stacktrace, post an error to console, and return failure state
-            e.printStackTrace();
-            System.err.printf("Could not write melee weapon '%s' to '%s'.\n", this.getName(), filename);
-            return false;
-        }
-    }
+    // /**
+    //  * Write the object to file with the given name
+    //  * @param filename The name of the file to write the object to
+    //  * @return returns true if file writing was successful, false indicates failure to write file.
+    //  */
+    // public boolean writeToFile(String filename) {
+    //     try {
+    //         //write object data to a file
+    //         g.toJson(this, new FileWriter(filename));
+    //         //return success state
+    //         return true;
+    //     } catch(Exception e) {
+    //         //print the stacktrace, post an error to console, and return failure state
+    //         e.printStackTrace();
+    //         System.err.printf("Could not write melee weapon '%s' to '%s'.\n", this.getName(), filename);
+    //         return false;
+    //     }
+    // }
 
     public int getDamage(){return this.damage;}
     public int getSpeed(){return this.speed;}

@@ -3,6 +3,7 @@ package io.github.darkwaterkiller;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.Scanner;
+import java.util.ArrayList;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -13,11 +14,11 @@ public class Entity {
     private static Scanner filereader;
 
     private final String name;
-    private Item[] inventory;
+    private ArrayList<Item> inventory;
 
     public Entity(String name) {
         this.name = name;
-        this.inventory = new Item[0];
+        this.inventory = new ArrayList<Item>();
     }
 
     public Entity EntityFromFile(String filename) {
@@ -41,24 +42,24 @@ public class Entity {
         }
     }
 
-    public boolean writeToFile(String filename) {
-        try {
-            //write object data to a file
-            g.toJson(this, new FileWriter(filename));
-            //return success state
-            return true;
-        } catch(Exception e) {
-            //print the stacktrace, post an error to console, and return failure state
-            e.printStackTrace();
-            System.err.printf("Could not write entity '%s' to '%s'.\n", this.name, filename);
-            return false;
-        }
-    }
+    // public boolean writeToFile(String filename) {
+    //     try {
+    //         //write object data to a file
+    //         g.toJson(this, new FileWriter(filename));
+    //         //return success state
+    //         return true;
+    //     } catch(Exception e) {
+    //         //print the stacktrace, post an error to console, and return failure state
+    //         e.printStackTrace();
+    //         System.err.printf("Could not write entity '%s' to '%s'.\n", this.name, filename);
+    //         return false;
+    //     }
+    // }
 
     public String getName(){return this.name;}
-    public Item[] getInventory(){return this.inventory;}
-
-    //TODO implement inventory management
+    //no current need for inventory methods, simply just
+    //getInventory then do stuff with that
+    public ArrayList<Item> getInventory(){return this.inventory;}
 
     @Override
     public String toString() {

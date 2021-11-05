@@ -1,0 +1,22 @@
+{
+  "name": "Billy",
+  "inventory": [
+    {
+      "damage": 1,
+      "speed": 1,
+      "weight": 1,
+      "value": 0,
+      "name": "stick"
+    },
+    {
+      "damage": 1,
+      "rof": 1,
+      "accuracy": 100,
+      "weight": 1,
+      "value": 0,
+      "curCap": 1,
+      "maxCap": 1,
+      "name": "pea shooter"
+    }
+  ]
+}

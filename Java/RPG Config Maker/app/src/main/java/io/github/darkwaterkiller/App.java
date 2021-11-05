@@ -360,7 +360,7 @@ public class App extends JFrame {
         }
     }
 
-    private void writeToFile(String JSON, String filename) {
+    private static void writeToFile(String JSON, String filename) {
         try{
             //open, write, close
             BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
@@ -380,7 +380,19 @@ public class App extends JFrame {
             System.err.println("Unable to set look and feel");
         }
 
+
+        //!This is just test code, delete before buildDist
+        
+        Entity e = new Entity("Billy");
+        e.getInventory().add(new MeleeWeapon("stick", 1, 1, 1, 0));
+        e.getInventory().add(new RangedWeapon("pea shooter", 1, 1, 100, 1, 0, 1, 1));
+        String tmp = gson.toJson(e);
+        writeToFile(tmp, "./configs/Entity_Billy.json");
+        
+        //!end test code
+
         //Launch the poker app
         SwingUtilities.invokeLater(() -> new App());
+
     }
 }
