@@ -1,13 +1,12 @@
 package io.github.darkwaterkiller;
 
-import java.util.Scanner;
 import java.io.File;
-import java.io.FileWriter;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class MeleeWeapon extends Item {
+public class MeleeWeapon extends GameObject {
 
     private static final Gson g = new GsonBuilder().setPrettyPrinting().create();
     private static Scanner filereader;
@@ -42,25 +41,6 @@ public class MeleeWeapon extends Item {
             return null;
         }
     }
-
-    // /**
-    //  * Write the object to file with the given name
-    //  * @param filename The name of the file to write the object to
-    //  * @return returns true if file writing was successful, false indicates failure to write file.
-    //  */
-    // public boolean writeToFile(String filename) {
-    //     try {
-    //         //write object data to a file
-    //         g.toJson(this, new FileWriter(filename));
-    //         //return success state
-    //         return true;
-    //     } catch(Exception e) {
-    //         //print the stacktrace, post an error to console, and return failure state
-    //         e.printStackTrace();
-    //         System.err.printf("Could not write melee weapon '%s' to '%s'.\n", this.getName(), filename);
-    //         return false;
-    //     }
-    // }
 
     public int getDamage(){return this.damage;}
     public int getSpeed(){return this.speed;}

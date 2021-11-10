@@ -1,24 +1,22 @@
 package io.github.darkwaterkiller;
 
 import java.io.File;
-import java.io.FileWriter;
-import java.util.Scanner;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
-public class Entity {
+public class Entity extends GameObject {
     
     private static final Gson g = new GsonBuilder().setPrettyPrinting().create();
     private static Scanner filereader;
 
-    private final String name;
-    private ArrayList<Item> inventory;
+    private ArrayList<GameObject> inventory;
 
     public Entity(String name) {
-        this.name = name;
-        this.inventory = new ArrayList<Item>();
+        super(name);
+        this.inventory = new ArrayList<GameObject>();
     }
 
     public Entity EntityFromFile(String filename) {
@@ -42,27 +40,13 @@ public class Entity {
         }
     }
 
-    // public boolean writeToFile(String filename) {
-    //     try {
-    //         //write object data to a file
-    //         g.toJson(this, new FileWriter(filename));
-    //         //return success state
-    //         return true;
-    //     } catch(Exception e) {
-    //         //print the stacktrace, post an error to console, and return failure state
-    //         e.printStackTrace();
-    //         System.err.printf("Could not write entity '%s' to '%s'.\n", this.name, filename);
-    //         return false;
-    //     }
-    // }
-
-    public String getName(){return this.name;}
+    public String getName(){return this.getName();}
     //no current need for inventory methods, simply just
     //getInventory then do stuff with that
-    public ArrayList<Item> getInventory(){return this.inventory;}
+    public ArrayList<GameObject> getInventory(){return this.inventory;}
 
     @Override
     public String toString() {
-        return "Name:\t" + this.name;
+        return "Name:\t" + this.getName();
     }
 }
