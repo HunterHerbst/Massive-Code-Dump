@@ -16,7 +16,7 @@ public class GameObject {
 
     public String getName(){return this.name;}
 
-    public void printToFile(String filename) {
+    public void writeToFile(String filename) {
         String json = gson.toJson(this);
         try {
             BufferedWriter bw = new BufferedWriter(new FileWriter(filename));

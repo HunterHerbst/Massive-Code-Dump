@@ -9,9 +9,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 
 import java.awt.Dimension;
 
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-
 import com.google.gson.*;
 
 public class App extends JFrame {
@@ -26,14 +23,16 @@ public class App extends JFrame {
     //panel layouts
     private GroupLayout layout,
         meleeWeaponLayout,
-        rangedWeaponLayout;
+        rangedWeaponLayout,
+        entityLayout;
     
     //main panel
     private JTabbedPane mainSelectorPanel;
     
     //panels
     private JPanel meleeWeaponPanel,
-        rangedWeaponPanel;
+        rangedWeaponPanel,
+        entityPanel;
     
     //main panel buttons
     private JButton closeButton,
@@ -56,6 +55,9 @@ public class App extends JFrame {
         rangedWeaponAmmoLabel,
         rangedWeaponAmmoSeparatorLabel;
 
+    //entity labels
+    private JLabel entityNameLabel;
+
     //melee weapon fields
     private JTextField meleeWeaponNameField,
         meleeWeaponDamageField,
@@ -72,6 +74,9 @@ public class App extends JFrame {
         rangedWeaponValueField,
         rangedWeaponCurAmmoField,
         rangedWeaponMaxAmmoField;
+
+    //entity fields
+    private JTextField entityNameField;
 
     public App() {
         this.setTitle("Config Creator");
@@ -142,6 +147,12 @@ public class App extends JFrame {
         rangedWeaponMaxAmmoField.setMinimumSize(ATFD);
         rangedWeaponMaxAmmoField.setMaximumSize(ATFD);   
         rangedWeaponAmmoSeparatorLabel = new JLabel("/");
+
+        //Entity
+        entityNameLabel = new JLabel("Name");
+        entityNameField = new JTextField();
+        entityNameField.setMinimumSize(STFD);
+        entityNameField.setMaximumSize(STFD);
 
         //#make the selector panel
         mainSelectorPanel = new JTabbedPane(JTabbedPane.TOP);
@@ -263,9 +274,32 @@ public class App extends JFrame {
         .addContainerGap()
     );
 
+        entityPanel = new JPanel();
+        entityLayout = new GroupLayout(entityPanel);
+        entityPanel.setLayout(entityLayout);
+        entityLayout.setHorizontalGroup(
+            entityLayout.createSequentialGroup()
+            .addContainerGap()
+            .addGroup(
+                entityLayout.createParallelGroup(Alignment.LEADING)
+                .addComponent(entityNameLabel)
+                .addComponent(entityNameField)
+            )
+            .addContainerGap()
+        );
+        entityLayout.setVerticalGroup(
+            entityLayout.createSequentialGroup()
+            .addContainerGap()
+            .addComponent(entityNameLabel)
+            .addPreferredGap(ComponentPlacement.RELATED)
+            .addComponent(entityNameField)
+            .addContainerGap()
+        );
+
         //add panels to selector
         mainSelectorPanel.addTab("M.Weapon", meleeWeaponPanel);
         mainSelectorPanel.addTab("R.Weapon", rangedWeaponPanel);
+        mainSelectorPanel.addTab("Entity", entityPanel);
 
         //#layout main
         layout = new GroupLayout(this.getContentPane());
@@ -324,52 +358,26 @@ public class App extends JFrame {
     }
 
     private void saveMeleeWeapon() {
-        try {
-            MeleeWeapon tmp = new MeleeWeapon(
-                meleeWeaponNameField.getText(),
-                Integer.parseInt(meleeWeaponDamageField.getText()),
-                Integer.parseInt(meleeWeaponSpeedField.getText()),
-                Integer.parseInt(meleeWeaponWeightField.getText()),
-                Integer.parseInt(meleeWeaponValueField.getText())
-            );
-            String jsonString = gson.toJson(tmp);
-            writeToFile(jsonString, String.format("./configs/weapons/melee/MW_%s.json", tmp.getName()));
-        } catch(Exception e) {
-            e.printStackTrace();
-            System.err.printf("Unable to parse melee weapon data\n");
-        }
+        new MeleeWeapon(
+            meleeWeaponNameField.getText(),
+            Integer.parseInt(meleeWeaponDamageField.getText()),
+            Integer.parseInt(meleeWeaponSpeedField.getText()),
+            Integer.parseInt(meleeWeaponWeightField.getText()),
+            Integer.parseInt(meleeWeaponValueField.getText())
+        ).writeToFile(String.format("./configs/weapons/melee/MW_%s.json", meleeWeaponNameField.getText()));
     }
 
     private void saveRangedWeapon() {
-        try {
-            RangedWeapon tmp = new RangedWeapon(
-                rangedWeaponNameField.getText(),
-                Integer.parseInt(rangedWeaponDamageField.getText()),
-                Integer.parseInt(rangedWeaponROFField.getText()),
-                Integer.parseInt(rangedWeaponAccField.getText()),
-                Integer.parseInt(rangedWeaponWeightField.getText()),
-                Integer.parseInt(rangedWeaponValueField.getText()),
-                Integer.parseInt(rangedWeaponCurAmmoField.getText()),
-                Integer.parseInt(rangedWeaponMaxAmmoField.getText())
-            );
-            String jsonString = gson.toJson(tmp);
-            writeToFile(jsonString, String.format("./configs/weapons/ranged/RW_%s.json", tmp.getName()));
-        } catch(Exception e) {
-            e.printStackTrace();
-            System.err.printf("Unable to parse ranged weapon data\n");
-        }
-    }
-
-    private static void writeToFile(String JSON, String filename) {
-        try{
-            //open, write, close
-            BufferedWriter bw = new BufferedWriter(new FileWriter(filename));
-            bw.write(JSON);
-            bw.close();
-        } catch(Exception e) {
-            e.printStackTrace();
-            System.err.printf("Could not save JSON data to file '%s'\n", filename);
-        }
+        new RangedWeapon(
+            rangedWeaponNameField.getText(),
+            Integer.parseInt(rangedWeaponDamageField.getText()),
+            Integer.parseInt(rangedWeaponROFField.getText()),
+            Integer.parseInt(rangedWeaponAccField.getText()),
+            Integer.parseInt(rangedWeaponWeightField.getText()),
+            Integer.parseInt(rangedWeaponValueField.getText()),
+            Integer.parseInt(rangedWeaponCurAmmoField.getText()),
+            Integer.parseInt(rangedWeaponMaxAmmoField.getText())
+        ).writeToFile(String.format("./configs/weapons/ranged/RW_%s.json", rangedWeaponNameField.getText()));
     }
 
     public static void main(String[] args) {

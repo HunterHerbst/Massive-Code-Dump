@@ -40,7 +40,6 @@ public class Entity extends GameObject {
         }
     }
 
-    public String getName(){return this.getName();}
     //no current need for inventory methods, simply just
     //getInventory then do stuff with that
     public ArrayList<GameObject> getInventory(){return this.inventory;}
