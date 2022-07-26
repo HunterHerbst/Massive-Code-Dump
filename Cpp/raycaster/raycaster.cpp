@@ -5,10 +5,14 @@
 #define WINDOW_WIDTH 1024
 #define WINDOW_HEIGHT 512
 
+//keystate maps
 std::map<unsigned char, bool> state;
 std::map<unsigned char, bool> prevState;
 
-float px, py; //player position
+//player postion and orientation
+float px, py;
+
+//map dimensions and cube size
 
 void drawPlayer()
 {

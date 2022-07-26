@@ -1,1 +1,0 @@
-g++ main.cpp -o raycaster.exe -lglu32 -lglut32 -lopengl32
