@@ -58,7 +58,7 @@ C program with the sole purpose of making text files that are multiple gigabytes
 
 ### Random Value Counter
 
-Generates and then counts the occurrences of random numbers. 
+Generates and then counts the occurrences of random numbers.
 
 ### Small C TicTacToe
 
