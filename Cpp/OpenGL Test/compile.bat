@@ -1,0 +1,1 @@
+g++ main.cpp -o "ogl.exe" -lglu32 -lglut32 -lopengl32
