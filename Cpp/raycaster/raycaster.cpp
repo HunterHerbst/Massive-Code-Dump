@@ -13,7 +13,10 @@ std::map<unsigned char, bool> prevState;
 float px, py;
 
 //map dimensions and cube size
-
+const int mapX = 8,
+    mapY = 8,
+    mapS = 64;
+    
 void drawPlayer()
 {
     glColor3f(1,1,0);

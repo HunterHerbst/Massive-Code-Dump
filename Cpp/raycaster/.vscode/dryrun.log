@@ -1,0 +1,7 @@
+make.exe --dry-run --always-make --keep-going --print-directory
+make.exe: Entering directory `/c/Users/hunte/Documents/programming/Cpp/raycaster'
+g++ raycaster.cpp -c -lglu32 -lglut32 -lopengl32 -Wall
+g++ raycaster.o -lglu32 -lglut32 -lopengl32 -o raycaster.exe
+ 
+make.exe: Leaving directory `/c/Users/hunte/Documents/programming/Cpp/raycaster'
+ 
