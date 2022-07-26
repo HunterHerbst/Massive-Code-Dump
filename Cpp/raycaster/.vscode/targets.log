@@ -10,7 +10,7 @@ make.exe all --print-data-base --no-builtin-variables --no-builtin-rules --quest
 make.exe: *** No rule to make target `all'.  Stop.
 
 
-# Make data base, printed on Tue Jul 26 14:52:51 2022
+# Make data base, printed on Tue Jul 26 16:13:55 2022
 
 # Variables
 
@@ -20,8 +20,8 @@ make.exe: *** No rule to make target `all'.  Stop.
 ?F = $(notdir $?)
 # makefile
 MAKEFLAGS = Rrqp
-# makefile (from `makefile', line 5)
  
+# makefile (from `makefile', line 5)
 OUTFILENAME := raycaster.exe
 # automatic
 ?D = $(patsubst %/,%,$(dir $?))
@@ -34,11 +34,11 @@ HOMEDRIVE = C:
 # automatic
 ^D = $(patsubst %/,%,$(dir $^))
 # makefile
-CURDIR := /c/Users/hunte/Documents/programming/Cpp/raycaster
+CURDIR := /c/Users/hunte/OneDrive/Documents/Programming/Cpp/raycaster
 # default
 SHELL := /bin/sh
 # environment
-WINDIR = C:\Windows
+WINDIR = C:\WINDOWS
 # environment
 VSCODE_NLS_CONFIG = {"locale":"en-us","availableLanguages":{},"_languagePackSupport":true}
 # environment
@@ -56,17 +56,23 @@ PROGRAMW6432 = C:\Program Files
 # environment
 PROGRAMDATA = C:\ProgramData
 # environment
+CUDA_PATH_V10_1 = C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1
+# environment
 VSCODE_CWD = C:\Users\hunte\AppData\Local\Programs\Microsoft VS Code
 # environment
-PATH = /c/Program Files/Common Files/Oracle/Java/javapath:/c/Program Files/Oculus/Support/oculus-runtime:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0/:/c/Windows/System32/OpenSSH/:/c/Program Files/NVIDIA Corporation/NVIDIA NvDLISR:/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/c/Program Files (x86)/ZeroTier/One/:/mingw/bin:/c/Program Files/Git/cmd:/usr/bin:/c/Users/hunte/AppData/Local/Microsoft/WindowsApps:.:/c/Users/hunte/AppData/Local/Programs/Microsoft VS Code/bin
+PATH = /c/Program Files/Common Files/Oracle/Java/javapath:/c/Program Files/National Instruments/Shared/OpenVINO/:/c/Program Files (x86)/Common Files/Intel/Shared Libraries/redist/intel64/compiler:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v10.1/bin:/c/Program Files/NVIDIA GPU Computing Toolkit/CUDA/v10.1/libnvvp:/c/Windows/system32:/c/Windows:/c/Windows/System32/Wbem:/c/Windows/System32/WindowsPowerShell/v1.0/:/c/Windows/System32/OpenSSH/:/mingw/bin:/c/Program Files/Git/cmd:/c/Program Files/Microsoft SQL Server/120/Tools/Binn/:/c/Program Files/dotnet/:/c/Program Files/Intel/WiFi/bin/:/c/Program Files/Common Files/Intel/WirelessCommon/:/c/Program Files/CMake/bin:/c/Program Files/NVIDIA Corporation/Nsight Compute 2019.4.0/:/c/Program Files (x86)/NVIDIA Corporation/PhysX/Common:/c/Users/hunte/OneDrive/Documents/proguard6.2.2/bin:/c/Users/hunte/AppData/Roaming/.minecraft/shaderpacks:/c/Program Files (x86)/VideoLAN/VLC:/c/Program Files/nodejs/:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/c/WINDOWS/System32/OpenSSH/:/c/Program Files/Java/jdk-15.0.2/bin:/c/Gradle/bin:/c/WINDOWS/system32:/c/WINDOWS:/c/WINDOWS/System32/Wbem:/c/WINDOWS/System32/WindowsPowerShell/v1.0/:/c/WINDOWS/System32/OpenSSH/:/c/ffmpeg/bin:/usr/bin:/c/Users/hunte/AppData/Local/Programs/Python/Python37-32/Scripts/:/c/Users/hunte/AppData/Local/Programs/Python/Python37-32/:/c/Users/hunte/AppData/Local/Microsoft/WindowsApps:/c/Users/hunte/AppData/Local/Programs/Microsoft VS Code/bin:/c/Users/hunte/AppData/Local/GitHubDesktop/bin:/c/Program Files/CMake/bin:/c/Users/Public/frc2019/roborio/bin:/c/Users/Public/frc2019/frccode:/c/Users/hunte/AppData/Local/Programs/MiKTeX 2.9/miktex/bin/x64/:/c/Users/hunte/.dotnet/tools:/c/Users/hunte/AppData/Roaming/npm:/c/Users/hunte/AppData/Local/Microsoft/WindowsApps:.
 # environment
 COMMONPROGRAMW6432 = C:\Program Files\Common Files
+# environment
+ZES_ENABLE_SYSMAN = 1
+# environment
+NIEXTCCOMPILERSUPP = C:\Program Files (x86)\National Instruments\Shared\ExternalCompilerSupport\C\
 # environment
 PROCESSOR_ARCHITECTURE = x86
 # environment
 USERPROFILE = C:\Users\hunte
 # environment
-!C: = c:\Users\hunte\Documents\programming\Cpp\raycaster
+!C: = c:\Users\hunte\OneDrive\Documents\Programming\Cpp\raycaster
 # environment
 ALLUSERSPROFILE = C:\ProgramData
 # environment
@@ -76,17 +82,21 @@ ELECTRON_RUN_AS_NODE = 1
 # default
 .FEATURES := target-specific order-only second-expansion else-if archives jobserver check-symlink
 # environment
-OCULUSBASE = C:\Program Files\Oculus\
+NVTOOLSEXT_PATH = C:\Program Files\NVIDIA Corporation\NvToolsExt\
+# environment
+OV_NI_PLUGIN_DIR = C:\Program Files\National Instruments\Shared\OpenVINO\
 # automatic
 %F = $(notdir $%)
 # environment
-CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_15816_SVUPIVRKKBNMDOYY
+CHROME_CRASHPAD_PIPE_NAME = \\.\pipe\crashpad_19112_FRVUWCLMKWJFCDSE
 # environment
-COMPUTERNAME = DARKWATER-BARQU
+COMPUTERNAME = DARKWATER-BAY
 # environment
 PROGRAMFILES = C:\Program Files (x86)
 # environment
 DRIVERDATA = C:\Windows\System32\Drivers\DriverData
+# environment
+NVCUDASAMPLES_ROOT = C:\ProgramData\NVIDIA Corporation\CUDA Samples\v10.1
 # environment
 ORIGINAL_XDG_CURRENT_DESKTOP = undefined
 # environment
@@ -98,17 +108,17 @@ VSCODE_AMD_ENTRYPOINT = vs/workbench/api/node/extensionHostProcess
 # environment
 VSCODE_CODE_CACHE_PATH = C:\Users\hunte\AppData\Roaming\Code\CachedData\3b889b090b5ad5793f524b5d1d39fda662b96a2a
 # environment
-APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = true
+APPLICATION_INSIGHTS_NO_DIAGNOSTIC_CHANNEL = 1
 # environment
 COMMONPROGRAMFILES = C:\Program Files (x86)\Common Files
 # environment
-LOGONSERVER = \\DARKWATER-BARQU
-# environment
-ONEDRIVECONSUMER = C:\Users\hunte\OneDrive
+LOGONSERVER = \\DARKWATER-BAY
 # environment
 VSCODE_HANDLES_UNCAUGHT_ERRORS = true
 # environment
-USERDOMAIN = DARKWATER-BARQU
+USERDOMAIN = DARKWATER-BAY
+# environment
+MIC_LD_LIBRARY_PATH = C:\Program Files (x86)\Common Files\Intel\Shared Libraries\compiler\lib\mic
 # default
 MAKE = $(MAKE_COMMAND)
 # default
@@ -128,7 +138,7 @@ LOCALAPPDATA = C:\Users\hunte\AppData\Local
 # makefile (from `makefile', line 3)
 GLLINKS := -lglu32 -lglut32 -lopengl32
 # environment
-PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\Windows\system32\WindowsPowerShell\v1.0\Modules
+PSMODULEPATH = C:\Program Files\WindowsPowerShell\Modules;C:\WINDOWS\system32\WindowsPowerShell\v1.0\Modules
 # default
 MAKE_COMMAND := make.exe
 # environment
@@ -138,7 +148,7 @@ PROCESSOR_ARCHITEW6432 = AMD64
 # automatic
 *F = $(notdir $*)
 # environment
-PROCESSOR_IDENTIFIER = AMD64 Family 25 Model 80 Stepping 0, AuthenticAMD
+PROCESSOR_IDENTIFIER = Intel64 Family 6 Model 158 Stepping 10, GenuineIntel
 # environment
 OS = Windows_NT
 # environment
@@ -154,7 +164,9 @@ MFLAGS = -Rrqp
 # automatic
 *D = $(patsubst %/,%,$(dir $*))
 # environment
-SYSTEMROOT = C:\Windows
+INTEL_DEV_REDIST = C:\Program Files (x86)\Common Files\Intel\Shared Libraries\
+# environment
+SYSTEMROOT = C:\WINDOWS
 # automatic
 +D = $(patsubst %/,%,$(dir $+))
 # automatic
@@ -164,7 +176,7 @@ APPDATA = C:\Users\hunte\AppData\Roaming
 # environment
 TEMP = /tmp
 # environment
-COMSPEC = C:\Windows\system32\cmd.exe
+COMSPEC = C:\WINDOWS\system32\cmd.exe
 # default
 MAKEFILES := 
 # automatic
@@ -172,9 +184,13 @@ MAKEFILES :=
 # makefile (from `makefile', line 2)
 CXX := g++
 # environment
+NVCUDASAMPLES10_1_ROOT = C:\ProgramData\NVIDIA Corporation\CUDA Samples\v10.1
+# environment
 LC_ALL = C
 # automatic
 ^F = $(notdir $^)
+# environment
+CUDA_PATH = C:\Program Files\NVIDIA GPU Computing Toolkit\CUDA\v10.1
 # default
 SUFFIXES := 
 # environment
@@ -182,7 +198,7 @@ SYSTEMDRIVE = C:
 # environment
 SESSIONNAME = Console
 # environment
-PROCESSOR_REVISION = 5000
+PROCESSOR_REVISION = 9e0a
 # default
 .INCLUDE_DIRS = /usr/include /usr/include
 # environment
@@ -190,25 +206,26 @@ MAKELEVEL := 0
 # environment
 LANG = C
 # environment
-PROCESSOR_LEVEL = 25
+PROCESSOR_LEVEL = 6
 # environment
 TERM = cygwin
 # environment
 FPS_BROWSER_APP_PROFILE_STRING = Internet Explorer
 # environment
-VSCODE_PID = 15816
+VSCODE_PID = 19112
 # environment
-USERDOMAIN_ROAMINGPROFILE = DARKWATER-BARQU
+USERDOMAIN_ROAMINGPROFILE = DARKWATER-BAY
 # variable set hash-table stats:
-# Load=92/1024=9%, Rehash=0, Collisions=9/117=8%
+# Load=100/1024=10%, Rehash=0, Collisions=9/125=7%
 
 # Pattern-specific Variable Values
 
 # No pattern-specific variable values.
 
+ 
 # Directories
 
-# . (device 9135, inode 861683): 6 files, no impossibilities.
+# . (device 27733, inode 4519837): 6 files, no impossibilities.
 
 # 6 files, no impossibilities in 1 directories.
 
@@ -248,7 +265,7 @@ raycaster.cpp:
 makefile:
 #  Implicit rule search has been done.
  
-#  Last modified 2022-07-26 14:31:31
+#  Last modified 2022-07-26 14:32:24
 #  File has been updated.
 #  Successfully updated.
 # variable set hash-table stats:
@@ -265,7 +282,6 @@ raycaster.o: raycaster.cpp
 raycaster: raycaster.o
 #  Implicit rule search has not been done.
 #  Modification time never checked.
- 
 #  File has not been updated.
 #  commands to execute (from `makefile', line 9):
 	$(CXX) raycaster.o $(GLLINKS) -o $(OUTFILENAME)
@@ -280,6 +296,7 @@ raycaster: raycaster.o
 clean:
 #  Phony target (prerequisite of .PHONY).
 #  Implicit rule search has not been done.
+ 
 #  File does not exist.
 #  File has not been updated.
 #  commands to execute (from `makefile', line 18):
@@ -299,6 +316,6 @@ clean:
 # strcache size: total = 4096 / max = 4096 / min = 4096 / avg = 4096
 # strcache free: total = 4087 / max = 4087 / min = 4087 / avg = 4087
 
-# Finished Make data base on Tue Jul 26 14:52:51 2022
+# Finished Make data base on Tue Jul 26 16:13:55 2022
 
  

@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <cmath>
 #include <GL/glut.h>
 
 #define WINDOW_WIDTH 1024
@@ -10,13 +11,52 @@ std::map<unsigned char, bool> state;
 std::map<unsigned char, bool> prevState;
 
 //player postion and orientation
-float px, py;
+float px, py, pdx, pdy, pa;
 
 //map dimensions and cube size
 const int mapX = 8,
     mapY = 8,
     mapS = 64;
+const int gamemap[] =
+{
+    1, 1, 1, 1, 1, 1, 1, 1,
+    1, 0, 1, 0, 0, 0, 0, 1,
+    1, 0, 1, 0, 0, 0, 0, 1,
+    1, 0, 1, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 1,
+    1, 0, 0, 0, 0, 1, 0, 1,
+    1, 0, 0, 0, 0, 0, 0, 1,
+    1, 1, 1, 1, 1, 1, 1, 1
+};
     
+void drawMap2D()
+{
+    int x, y, xo, yo;
+    for(y=0; y < mapY; y++)
+    {
+        for(x=0; x < mapX; x++)
+        {
+            if(gamemap[y*mapX+x] == 1)
+            {
+                glColor3f(1,1,1);   
+            }
+            else
+            {
+                glColor3f(0,0,0);
+            }
+            xo = x*mapS;
+            yo = y*mapS;
+            // draw quad in COUNTER CLOCKWISE direction
+            glBegin(GL_QUADS);
+            glVertex2i(xo     +1, yo     +1);
+            glVertex2i(xo     +1, yo+mapS-1);
+            glVertex2i(xo+mapS-1, yo+mapS-1);
+            glVertex2i(xo+mapS-1, yo     +1);
+            glEnd();
+        }
+    }
+}
+
 void drawPlayer()
 {
     glColor3f(1,1,0);
@@ -28,10 +68,41 @@ void drawPlayer()
 
 void playerController()
 {
-    if(state['w']) py-=5;
-    if(state['s']) py+=5;
-    if(state['a']) px-=5;
-    if(state['d']) px+=5;
+    // if(state['w']) py-=5;
+    // if(state['s']) py+=5;
+    // if(state['a']) px-=5;
+    // if(state['d']) px+=5;
+
+    if(state['w'])
+    {
+        px += pdx;
+        py += pdy;
+    }
+    if(state['s'])
+    {
+        px -= pdx;
+        py -= pdy;
+    }
+    if(state['a'])
+    {
+        pa-=0.1;
+        if(pa < 0)
+        {
+            pa += 2*M_PI;
+        }
+        pdx = cos(pa*5);
+        pdy = sin(pa*5);
+    }
+    if(state['d'])
+    {
+        pa+=0.1;
+        if(pa > 2*M_PI)
+        {
+            pa -= 2*M_PI;
+        }
+        pdx = cos(pa*5);
+        pdy = sin(pa*5);
+    }
 
     //print only on spacebar press, not on hold or release
     if(state[' '] && !prevState[' ']) std::cout << "hey" << std::endl;
@@ -40,6 +111,7 @@ void playerController()
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    drawMap2D();
     drawPlayer();
     glutSwapBuffers();
 }
@@ -83,7 +155,7 @@ void init()
 {
     glClearColor(0.3, 0.3, 0.3, 0);                 //set background color
     gluOrtho2D(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
-    px = WINDOW_WIDTH/2; py = WINDOW_HEIGHT/2;      //init player pos
+    px = 300; py = 300;      //init player pos
 }
 
 int main(int argc, char** argv)
