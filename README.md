@@ -10,6 +10,7 @@
   - [Small TicTacToe](#small-c-tictactoe)
   - [TicTacToe](#c-tictactoe)
   - [Wallis Formula](#c-wallis-formula)
+- [C++](#cpp)
 - [Java](#java)
   - [5 Draw Poker](#java-poker)
   - [Conway's Game of Life](#java-conway)
@@ -70,6 +71,10 @@ TicTacToe in C. Pretty self-explanatory.
 ### C Wallis Formula
 
 The [Wallis Formula](https://en.wikipedia.org/wiki/Wallis_product) is a mathematical formula used to estimate pi. This program just asks the user to enter the number of terms they want to use to estimate the value of pi. More terms will result in a more precise estimation.
+
+## [C++](/Cpp)
+
+Collection of C++ programs
 
 ## [Java](/Java)
 
