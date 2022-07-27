@@ -114,6 +114,69 @@ void drawRays3D()
             }
         }
 
+        //--- check vertical lines ---
+
+        dof = 0;
+        float ntanRay = -tan(ra);
+        
+        //TODO sometimes this will crash when looking straight up or down anyway
+        // ray is vertical
+        if( roundoff(ra, 3) == M_PI_2 || roundoff(ra, 3) == 3 * M_PI_2)
+        {
+            // std::cout << "vert" << std::endl;
+            ry = py;
+            rx = px;
+            dof = 8;
+        }
+        // ray looking left
+        else if(ra > M_PI_2 && ra < 3 * M_PI_2)
+        {
+            // std::cout << "left" << std::endl;
+            rx = (((int) px >> 6) << 6) - 0.0001; // round y value to nearest 64th value //!CHANGE THIS TO BE DYNAMIC FOR SIZES OTHER THAN 64 IN THE FUTURE
+            ry = (px - rx) * ntanRay + py;
+            xo = -64;
+            yo = -xo * ntanRay;
+        }
+        // ray looking right
+        else if(ra < M_PI_2 || ra > 3 * M_PI_2)
+        {
+            // std::cout << "right" << std::endl;
+            rx = (((int) px >> 6) << 6) + 64; // round y value to nearest 64th value //!CHANGE THIS TO BE DYNAMIC FOR SIZES OTHER THAN 64 IN THE FUTURE
+            ry = (px - rx) * ntanRay + py;
+            xo = 64;
+            yo = -xo * ntanRay;
+            // std::cout << "ry" << ry << std::endl;
+            // std::cout << "rx" << rx << std::endl;
+        }
+
+        //perform search on ray with max depth of 8 //!CHANGE THIS TO BE DYNAMIC WTIH MAPS LARGER THAN 8x8 IN THE FUTURE
+        while(dof < 8)
+        {
+            mx = (int)(rx) >> 6;
+            my = (int)(ry) >> 6;
+            mp = my * mapX + mx;
+            // std::cout << "my" << my << std::endl;
+            // std::cout << "mx" << mx << std::endl;
+            // std::cout << "mp" << mp << std::endl;
+            if(mp < 0)
+            {
+                std::cout << "FRICK" << std::endl;
+                break;
+            }
+            // hit a wall
+            if(mp < mapX * mapY && gamemap[mp] == 1)
+            {
+                dof = 8;
+            }
+            // missed wall, so check next square using x/y offsets
+            else
+            {
+                rx += xo;
+                ry += yo;
+                dof+=1;
+            }
+        }
+
         // draw ray for funsies
         glColor3f(0, 1, 0);
         glLineWidth(1);
