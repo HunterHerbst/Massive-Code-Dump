@@ -3,21 +3,26 @@
 #include <cmath>
 #include <GL/glut.h>
 
-#define WINDOW_WIDTH 1024
-#define WINDOW_HEIGHT 512
+//# constants used in program
 
-//keystate maps
-std::map<unsigned char, bool> state;
-std::map<unsigned char, bool> prevState;
+// window consts
+constexpr int WINDOW_WIDTH = 1024, 
+    WINDOW_HEIGHT = 512;
 
-//player postion and orientation
-float px, py, pdx, pdy, pa;
+// player consts
+constexpr int PLAYER_SIDE_LENGTH_MULTIPLIER = 16, 
+    PLAYER_MOVE_SPEED_MULT = 2;
+constexpr float PLAYER_BACK_VERTEX_ANGLE_OFFSET = 0.5235987902, 
+    PLAYER_TURN_RATE = 0.05;
 
-//map dimensions and cube size
-const int mapX = 8,
+// ray consts
+constexpr int RAYS_TO_CAST = 1;
+
+// map consts
+constexpr int mapX = 8,
     mapY = 8,
-    mapS = 64;
-const int gamemap[] =
+    mapS = 64; // map square size (side length, not area)
+constexpr int gamemap[] =
 {
     1, 1, 1, 1, 1, 1, 1, 1,
     1, 0, 1, 0, 0, 0, 0, 1,
@@ -28,7 +33,98 @@ const int gamemap[] =
     1, 0, 0, 0, 0, 0, 0, 1,
     1, 1, 1, 1, 1, 1, 1, 1
 };
-    
+
+
+//TODO CLEAR OUT NON CONSTANT GLOBAL VARIABLES!! MOST OF THESE CAN BE CHUCKED INTO A PLAYER STRUCT AND THEN A PLAYER CAN BE MADE IN MAIN TO BE PASSED THROUGH FUNCTIONS (UNLESS GLUT GETS ANGY I GUESS??? IDK YET)
+//! ^^^^^^ GLUT GETS ANGY WHEN I ADD PARAMETERS TO CERTAIN FUNCTIONS, SO AT LEAST MAKE A GLOBAL PLAYER VARIABLE TO CLEAN UP RANDOM VARIABLE NAMES
+//keystate maps
+std::map<unsigned char, bool> state;
+std::map<unsigned char, bool> prevState;
+
+//player postion and orientation
+float px, py, pdx, pdy, pa;
+
+float roundoff(float value, unsigned int precision)
+{
+    float pow_10 = pow(10.0f, (float)precision);
+    return round(value * pow_10) / pow_10;
+}
+
+//# drawing
+
+void drawRays3D()
+{
+    // ray number, map pos (x, y, exact square), depth of search
+    int r, mx, my, mp, dof;
+
+    // ray position, angle, and the x/y offsets
+    float rx, ry, ra, xo, yo;
+
+    ra = pa; // set ray angle to player angle
+
+    // cast RAYS_TO_CAST number of rays
+    for(r = 0; r < RAYS_TO_CAST; r++)
+    {
+        //--- check horizontal lines ---
+        dof = 0;
+        float arctanRay = -1 / tan(ra);
+
+        // ray is horizontal
+        if( roundoff(ra, 6) == 0 || ra == M_PI)
+        {
+            ry = py;
+            rx = px;
+            dof = 8;
+        }
+        // ray looking up
+        else if(ra > M_PI)
+        {
+            ry = (((int) py >> 6) << 6) - 0.0001; // round y value to nearest 64th value //!CHANGE THIS TO BE DYNAMIC FOR SIZES OTHER THAN 64 IN THE FUTURE
+            rx = (py - ry) * arctanRay + px;
+            yo = -64;
+            xo = -yo * arctanRay;
+        }
+        // ray looking down
+        else if(ra < M_PI)
+        {
+            ry = (((int) py >> 6) << 6) + 64; // round y value to nearest 64th value //!CHANGE THIS TO BE DYNAMIC FOR SIZES OTHER THAN 64 IN THE FUTURE
+            rx = (py - ry) * arctanRay + px;
+            yo = 64;
+            xo = -yo * arctanRay;
+        }
+
+        //perform search on ray with max depth of 8 //!CHANGE THIS TO BE DYNAMIC WTIH MAPS LARGER THAN 8x8 IN THE FUTURE
+        while(dof < 8)
+        {
+            mx = (int)(rx) >> 6;
+            my = (int)(ry) >> 6;
+            mp = my * mapX + mx;
+
+            // hit a wall
+            if(mp < mapX * mapY && gamemap[mp] == 1)
+            {
+                dof = 8;
+            }
+            // missed wall, so check next square using x/y offsets
+            else
+            {
+                rx += xo;
+                ry += yo;
+                dof+=1;
+            }
+        }
+
+        // draw ray for funsies
+        glColor3f(0, 1, 0);
+        glLineWidth(1);
+        glBegin(GL_LINES);
+        glVertex2i(px, py);
+        glVertex2i(rx, ry);
+        glEnd();
+    }
+}
+
+// draw overhead map view
 void drawMap2D()
 {
     int x, y, xo, yo;
@@ -57,87 +153,89 @@ void drawMap2D()
     }
 }
 
+// draw player on 2D view
 void drawPlayer()
 {
     glColor3f(1,1,0);
-    glPointSize(8);
-    glBegin(GL_POINTS);
+    //define player triangle in counter clockwise direction
+    glBegin(GL_TRIANGLES);
     glVertex2i(px, py);
+    glVertex2i(px - PLAYER_SIDE_LENGTH_MULTIPLIER * cos(pa + PLAYER_BACK_VERTEX_ANGLE_OFFSET), py - PLAYER_SIDE_LENGTH_MULTIPLIER * sin(pa + PLAYER_BACK_VERTEX_ANGLE_OFFSET));
+    glVertex2i(px - PLAYER_SIDE_LENGTH_MULTIPLIER * cos(pa - PLAYER_BACK_VERTEX_ANGLE_OFFSET), py - PLAYER_SIDE_LENGTH_MULTIPLIER * sin(pa - PLAYER_BACK_VERTEX_ANGLE_OFFSET));
     glEnd();
 }
 
+// player character movement controller
 void playerController()
 {
-    // if(state['w']) py-=5;
-    // if(state['s']) py+=5;
-    // if(state['a']) px-=5;
-    // if(state['d']) px+=5;
-
-    if(state['w'])
+    if(state['w'] || state['W'])
     {
-        px += pdx;
-        py += pdy;
+        px += pdx * PLAYER_MOVE_SPEED_MULT;
+        py += pdy * PLAYER_MOVE_SPEED_MULT;
     }
-    if(state['s'])
+    if(state['s'] || state['S'])
     {
-        px -= pdx;
-        py -= pdy;
+        px -= pdx * PLAYER_MOVE_SPEED_MULT;
+        py -= pdy * PLAYER_MOVE_SPEED_MULT;
     }
-    if(state['a'])
+    if(state['a'] || state['A'])
     {
-        pa-=0.1;
+        pa -= PLAYER_TURN_RATE;
         if(pa < 0)
         {
             pa += 2*M_PI;
         }
-        pdx = cos(pa*5);
-        pdy = sin(pa*5);
+        pdx = cos(pa);
+        pdy = sin(pa);
     }
-    if(state['d'])
+    if(state['d'] || state['D'])
     {
-        pa+=0.1;
+        pa += PLAYER_TURN_RATE;
         if(pa > 2*M_PI)
         {
             pa -= 2*M_PI;
         }
-        pdx = cos(pa*5);
-        pdy = sin(pa*5);
+        pdx = cos(pa);
+        pdy = sin(pa);
     }
 
     //print only on spacebar press, not on hold or release
     if(state[' '] && !prevState[' ']) std::cout << "hey" << std::endl;
 }
 
+// display func (call drawing functions from above)
 void display()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     drawMap2D();
     drawPlayer();
+    drawRays3D();
     glutSwapBuffers();
 }
 
+//# input processing
+
+// key press
 void processInputsDown(unsigned char key, int x, int y)
 {
-    // Legacy code from tutorial, this isn't instant
-    // if(key == 'w') { py-=5; }
-    // if(key == 's') { py+=5; }
-    // if(key == 'a') { px-=5; }
-    // if(key == 'd') { px+=5; }
-    //escape key
-    // if(key == 27 )
-    // {
-    // }
-    // glutPostRedisplay();
-
     state[key] = true;
 }
 
+// key release
 void processInputsUp(unsigned char key, int x, int y)
 {
     state[key] = false;
 }
 
-//timer for posting Redisplays
+// special keys (like f1-f12, arrows, etc.)
+void processSpecialInputs(unsigned int key, int x, int y)
+{
+
+}
+
+//# helpers
+
+// timer for posting redisplays
 void update(int extra)
 {
     playerController(); //update player based on inputs
@@ -146,18 +244,16 @@ void update(int extra)
     glutTimerFunc(16, update, 0);
 }
 
-void processSpecialInputs(unsigned int key, int x, int y)
-{
-
-}
-
+// variable initialization
 void init()
 {
     glClearColor(0.3, 0.3, 0.3, 0);                 //set background color
     gluOrtho2D(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
-    px = 300; py = 300;      //init player pos
+    px = 300; py = 300; pa = 0;     //init player pos
+    pdx = cos(pa); pdy = sin(pa);   //init player rotation
 }
 
+// main program function
 int main(int argc, char** argv)
 {
     glutInit(&argc, argv);
