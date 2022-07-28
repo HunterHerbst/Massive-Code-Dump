@@ -63,8 +63,8 @@ void drawRays3D()
     // ray number, map pos (x, y, exact square), depth of search
     int r, mx, my, mp, dof;
 
-    // ray position, angle, and the x/y offsets
-    float rx, ry, ra, xo, yo;
+    // ray position, angle, and the x/y offsets, final distance of ray
+    float rx, ry, ra, xo, yo, dt;
 
     // start ray 1/2 FOV to the left of the player
     ra = pa - DEGRAD * (FOV/2);
@@ -82,7 +82,7 @@ void drawRays3D()
         float dh = INFINITY,
             hx = px,
             hy = py,
-            arctanRay = -1 / tan(ra);
+            arctanRay = -1 / std::tan(ra);
         // ray is horizontal
         if( ra == 0 || ra == M_PI)
         {
@@ -136,7 +136,7 @@ void drawRays3D()
         float dv = INFINITY,
             vx = px,
             vy = py,
-            ntanRay = -tan(ra);
+            ntanRay = -std::tan(ra);
         // ray is vertical
         if( ra == M_PI_2 || ra == 3 * M_PI_2)
         {
@@ -186,6 +186,7 @@ void drawRays3D()
         // set ray length to shortest length
         rx = (dv < dh) ? vx : hx;
         ry = (dv < dh) ? vy : hy;
+        dt = std::min(dv, dh);
 
         // draw ray for funsies
         glColor3f(1, 0, 0);
@@ -193,6 +194,35 @@ void drawRays3D()
         glBegin(GL_LINES);
         glVertex2i(px, py);
         glVertex2i(rx, ry);
+        glEnd();
+
+        //--- Draw 3D Walls ---
+
+        // compensate for warping
+        float ca = pa - ra;
+        if(ca < 0)
+            ca += 2*M_PI;
+        if(ca > 2*M_PI)
+            ca -= 2*M_PI;
+        dt *= std::cos(ca);
+
+        // line height
+        float lineH = (mapS * 320) / dt;
+        lineH = std::min(lineH, 320.0f);
+
+        // line offset
+        float lineO = 160 - lineH / 2;
+
+        // draw wall
+        // change wall color depending on vertical or horizontal line being hit
+        if(dv < dh)
+            glColor3f(0, 1, 0.6118);
+        else
+            glColor3f(0.5, 1, 0.6118);
+        glLineWidth(8);
+        glBegin(GL_LINES);
+        glVertex2i(r * 8 + 530, lineO);
+        glVertex2i(r * 8 + 530, lineH + lineO);
         glEnd();
 
         // increase ray angle by one degree
@@ -240,8 +270,8 @@ void drawPlayer()
     //define player triangle in counter clockwise direction
     glBegin(GL_TRIANGLES);
     glVertex2i(px, py);
-    glVertex2i(px - PLAYER_SIDE_LENGTH_MULTIPLIER * cos(pa + PLAYER_BACK_VERTEX_ANGLE_OFFSET), py - PLAYER_SIDE_LENGTH_MULTIPLIER * sin(pa + PLAYER_BACK_VERTEX_ANGLE_OFFSET));
-    glVertex2i(px - PLAYER_SIDE_LENGTH_MULTIPLIER * cos(pa - PLAYER_BACK_VERTEX_ANGLE_OFFSET), py - PLAYER_SIDE_LENGTH_MULTIPLIER * sin(pa - PLAYER_BACK_VERTEX_ANGLE_OFFSET));
+    glVertex2i(px - PLAYER_SIDE_LENGTH_MULTIPLIER * std::cos(pa + PLAYER_BACK_VERTEX_ANGLE_OFFSET), py - PLAYER_SIDE_LENGTH_MULTIPLIER * std::sin(pa + PLAYER_BACK_VERTEX_ANGLE_OFFSET));
+    glVertex2i(px - PLAYER_SIDE_LENGTH_MULTIPLIER * std::cos(pa - PLAYER_BACK_VERTEX_ANGLE_OFFSET), py - PLAYER_SIDE_LENGTH_MULTIPLIER * std::sin(pa - PLAYER_BACK_VERTEX_ANGLE_OFFSET));
     glEnd();
 }
 
@@ -265,8 +295,8 @@ void playerController()
         {
             pa += 2*M_PI;
         }
-        pdx = cos(pa);
-        pdy = sin(pa);
+        pdx = std::cos(pa);
+        pdy = std::sin(pa);
     }
     if(state['d'] || state['D'])
     {
@@ -275,8 +305,19 @@ void playerController()
         {
             pa -= 2*M_PI;
         }
-        pdx = cos(pa);
-        pdy = sin(pa);
+        pdx = std::cos(pa);
+        pdy = std::sin(pa);
+    }
+    // strafing //TODO this doesn't work right lol
+    if(state['q'] || state['Q'])
+    {
+        px += pdy * PLAYER_MOVE_SPEED_MULT;
+        py += pdx * PLAYER_MOVE_SPEED_MULT;
+    }
+    if(state['e'] || state['E'])
+    {
+        px -= pdy * PLAYER_MOVE_SPEED_MULT;
+        py -= pdx * PLAYER_MOVE_SPEED_MULT;
     }
 
     //print only on spacebar press, not on hold or release
@@ -330,7 +371,7 @@ void init()
     glClearColor(0.3, 0.3, 0.3, 0);                 //set background color
     gluOrtho2D(0, WINDOW_WIDTH, WINDOW_HEIGHT, 0);
     px = 300; py = 300; pa = 0;     //init player pos
-    pdx = cos(pa); pdy = sin(pa);   //init player rotation
+    pdx = std::cos(pa); pdy = std::sin(pa);   //init player rotation
 }
 
 // main program function
