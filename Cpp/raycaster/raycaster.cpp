@@ -16,7 +16,8 @@ constexpr float PLAYER_BACK_VERTEX_ANGLE_OFFSET = 0.5235987902,
     PLAYER_TURN_RATE = 0.05;
 
 // ray consts
-constexpr int RAYS_TO_CAST = 1;
+constexpr float FOV = 90.0f,
+    DEGRAD = 0.01745329251; // one degree in radians
 
 // map consts
 constexpr int mapX = 8,
@@ -50,6 +51,11 @@ float roundoff(float value, unsigned int precision)
     return round(value * pow_10) / pow_10;
 }
 
+float dist(float ax, float ay, float bx, float by, float angle)
+{
+    return (sqrt((bx-ax)*(bx-ax) + (by-ay)*(by-ay)));
+}
+
 //# drawing
 
 void drawRays3D()
@@ -60,15 +66,23 @@ void drawRays3D()
     // ray position, angle, and the x/y offsets
     float rx, ry, ra, xo, yo;
 
-    ra = pa; // set ray angle to player angle
+    // start ray 1/2 FOV to the left of the player
+    ra = pa - DEGRAD * (FOV/2);
+    if(ra < 0)
+        ra += 2*M_PI;
+    if(ra > 2*M_PI)
+        ra -= 2*M_PI;
 
-    // cast RAYS_TO_CAST number of rays
-    for(r = 0; r < RAYS_TO_CAST; r++)
+    // cast FOV number of rays
+    for(r = 0; r < FOV; r++)
     {
         //--- check horizontal lines ---
         dof = 0;
-        float arctanRay = -1 / tan(ra);
-
+        // horizontal line length, and xy pos (init to massive value and player pos), and arctan
+        float dh = INFINITY,
+            hx = px,
+            hy = py,
+            arctanRay = -1 / tan(ra);
         // ray is horizontal
         if( ra == 0 || ra == M_PI)
         {
@@ -92,8 +106,7 @@ void drawRays3D()
             yo = 64;
             xo = -yo * arctanRay;
         }
-
-        //perform search on ray with max depth of 8 //!CHANGE THIS TO BE DYNAMIC WTIH MAPS LARGER THAN 8x8 IN THE FUTURE
+        // perform search on ray with max depth of 8 //!CHANGE THIS TO BE DYNAMIC WTIH MAPS LARGER THAN 8x8 IN THE FUTURE
         while(dof < 8)
         {
             mx = (int)(rx) >> 6;
@@ -103,6 +116,9 @@ void drawRays3D()
             // hit a wall
             if(mp < mapX * mapY && mp > -1 && gamemap[mp] == 1)
             {
+                hx = rx;
+                hy = ry;
+                dh = dist(px, py, hx, hy, ra);
                 dof = 8;
             }
             // missed wall, so check next square using x/y offsets
@@ -115,11 +131,12 @@ void drawRays3D()
         }
 
         //--- check vertical lines ---
-
         dof = 0;
-        float ntanRay = -tan(ra);
-        
-        //TODO sometimes this will crash when looking straight up or down anyway
+        // vertical line length, and xy pos (init to massive value and player pos), and negative tan
+        float dv = INFINITY,
+            vx = px,
+            vy = py,
+            ntanRay = -tan(ra);
         // ray is vertical
         if( ra == M_PI_2 || ra == 3 * M_PI_2)
         {
@@ -143,8 +160,7 @@ void drawRays3D()
             xo = 64;
             yo = -xo * ntanRay;
         }
-
-        //perform search on ray with max depth of 8 //!CHANGE THIS TO BE DYNAMIC WTIH MAPS LARGER THAN 8x8 IN THE FUTURE
+        // perform search on ray with max depth of 8 //!CHANGE THIS TO BE DYNAMIC WTIH MAPS LARGER THAN 8x8 IN THE FUTURE
         while(dof < 8)
         {
             mx = (int)(rx) >> 6;
@@ -153,6 +169,9 @@ void drawRays3D()
             // hit a wall
             if(mp < mapX * mapY && mp > -1 && gamemap[mp] == 1)
             {
+                vx = rx;
+                vy = ry;
+                dv = dist(px, py, vx, vy, ra);
                 dof = 8;
             }
             // missed wall, so check next square using x/y offsets
@@ -164,13 +183,24 @@ void drawRays3D()
             }
         }
 
+        // set ray length to shortest length
+        rx = (dv < dh) ? vx : hx;
+        ry = (dv < dh) ? vy : hy;
+
         // draw ray for funsies
-        glColor3f(0, 1, 0);
+        glColor3f(1, 0, 0);
         glLineWidth(1);
         glBegin(GL_LINES);
         glVertex2i(px, py);
         glVertex2i(rx, ry);
         glEnd();
+
+        // increase ray angle by one degree
+        ra += DEGRAD;
+        if(ra < 0)
+            ra += 2*M_PI;
+        if(ra > 2*M_PI)
+            ra -= 2*M_PI;
     }
 }
 
