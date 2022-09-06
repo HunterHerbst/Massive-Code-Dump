@@ -1,5 +1,6 @@
 #include <iostream>
 #include <map>
+#include <string>
 #include <cmath>
 #include <GL/glut.h>
 
@@ -275,6 +276,13 @@ void drawPlayer()
     glEnd();
 }
 
+// print information about current player state
+void printInfo()
+{
+    std::cout << "Current player angle deg: " << pa * 180 / M_PI << std::endl;
+    std::cout << "Current player angle rad: " << pa << std::endl;
+}
+
 // player character movement controller
 void playerController()
 {
@@ -311,17 +319,18 @@ void playerController()
     // strafing //TODO this doesn't work right lol
     if(state['q'] || state['Q'])
     {
-        px += pdy * PLAYER_MOVE_SPEED_MULT;
-        py += pdx * PLAYER_MOVE_SPEED_MULT;
+        px -= std::cos(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
+        py -= std::sin(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
     }
     if(state['e'] || state['E'])
     {
-        px -= pdy * PLAYER_MOVE_SPEED_MULT;
-        py -= pdx * PLAYER_MOVE_SPEED_MULT;
+        px += std::cos(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
+        py += std::sin(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
     }
 
     //print only on spacebar press, not on hold or release
-    if(state[' '] && !prevState[' ']) std::cout << "hey" << std::endl;
+    if(state[' '] && !prevState[' '])
+        printInfo();
 }
 
 // display func (call drawing functions from above)
