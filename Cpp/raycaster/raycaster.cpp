@@ -1,6 +1,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#define _USE_MATH_DEFINES //This allows access to PI
 #include <cmath>
 #include <GL/glut.h>
 
@@ -17,7 +18,7 @@ constexpr float PLAYER_BACK_VERTEX_ANGLE_OFFSET = 0.5235987902,
     PLAYER_TURN_RATE = 0.05;
 
 // ray consts
-constexpr float FOV = 90.0f,
+constexpr float FOV = 70.0f,
     DEGRAD = 0.01745329251; // one degree in radians
 
 // map consts
@@ -142,7 +143,6 @@ void drawRays3D()
         if( ra == M_PI_2 || ra == 3 * M_PI_2)
         {
             ry = py;
-            rx = px;
             dof = 8;
         }
         // ray looking left
@@ -217,7 +217,7 @@ void drawRays3D()
         // draw wall
         // change wall color depending on vertical or horizontal line being hit
         if(dv < dh)
-            glColor3f(0, 1, 0.6118);
+            glColor3f(0.6118, 1, 0);
         else
             glColor3f(0.5, 1, 0.6118);
         glLineWidth(8);
@@ -316,19 +316,19 @@ void playerController()
         pdx = std::cos(pa);
         pdy = std::sin(pa);
     }
-    // strafing //TODO this doesn't work right lol
+    // strafing
     if(state['q'] || state['Q'])
     {
-        px -= std::cos(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
-        py -= std::sin(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
+        px += pdy * PLAYER_MOVE_SPEED_MULT;
+        py -= pdx * PLAYER_MOVE_SPEED_MULT;
     }
     if(state['e'] || state['E'])
     {
-        px += std::cos(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
-        py += std::sin(pa + M_PI_2) * PLAYER_MOVE_SPEED_MULT;
+        px -= pdy * PLAYER_MOVE_SPEED_MULT;
+        py += pdx * PLAYER_MOVE_SPEED_MULT;
     }
 
-    //print only on spacebar press, not on hold or release
+    // print only on spacebar press, not on hold or release
     if(state[' '] && !prevState[' '])
         printInfo();
 }
