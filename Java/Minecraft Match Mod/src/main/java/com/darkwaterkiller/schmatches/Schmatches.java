@@ -15,6 +15,7 @@ import net.minecraft.world.World;
 
 // forge imports for making a new item in game
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.InterModComms;
@@ -31,34 +32,40 @@ import org.apache.logging.log4j.Logger;
 import java.util.stream.Collectors;
 
 // The value here should match an entry in the META-INF/mods.toml file
-@Mod("schmatches")
-public class Smatches {
+@Mod(Schmatches.MOD_ID)
+public class Schmatches {
+    public static final String MOD_ID = "schmatches";
+
     // Directly reference a log4j logger.
     private static final Logger LOGGER = LogManager.getLogger();
 
-    public Smatches() {
-        // Register the setup method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-        // Register the enqueueIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::enqueueIMC);
-        // Register the processIMC method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::processIMC);
-        // Register the doClientStuff method for modloading
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::doClientStuff);
+    public Schmatches() {
 
-        // Register ourselves for server and otehr game events we are interested in
+        // get the event bus for the mod
+        IEventBus eventBus = FMLJavaModLoadingContext.get().getModEventBus();
+
+        // register items in event bus
+        ModItems.register(eventBus);
+
+        // Register the setup, enqueueIMC, processIMC, and doClientStuff methods for modloading
+        eventBus.addListener(this::setup);
+        eventBus.addListener(this::enqueueIMC);
+        eventBus.addListener(this::processIMC);
+        eventBus.addListener(this::doClientStuff);
+
+        // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+
     }
 
     private void setup(final FMLCommonSetupEvent event) {
         // some preinit code
-        LOGGER.info("HELLO FROM PREINIT");
-        LOGGER.info("DIRT BLOCK >> {}", Items.DIRT.getRegistryName());
+        LOGGER.info("HELLO FROM SMATCHES PREINIT");
     }
 
     private void doClientStuff(final FMLClientSetupEvent event) {
-        // do something that can only be done on the client
-        LOGGER.info("Got game settings {}", event.getMinecraftSupplier().get().options);
+
     }
 
     private void enqueueIMC(final InterModEnqueueEvent event) {
@@ -70,10 +77,7 @@ public class Smatches {
     }
 
     private void processIMC(final InterModProcessEvent event) {
-        // some example code to receive and process InterModComms from other mods
-        LOGGER.info("Got IMC {}", event.getIMCStream().
-                map(m->m.getMessageSupplier().get()).
-                collect(Collectors.toList()));
+        
     }
 
     // You can use SubscribeEvent and let the Event Bus discover methods to call
@@ -92,9 +96,9 @@ public class Smatches {
         public static void onItemsRegistry(final RegistryEvent.Register<Item> itemRegistryEvent) {
             // register a new item here
             LOGGER.info("HELLO from Register Item");
-            itemRegistryEvent.getRegistry().register(new Item(new Item.Properties().tab(ItemGroup.TAB_MISC).rarity(Rarity.EPIC).stacksTo(1)).setRegistryName("schmatches", "schmatch"));
+            // itemRegistryEvent.getRegistry().register(new Item(new Item.Properties().tab(ItemGroup.TAB_MISC).rarity(Rarity.EPIC).stacksTo(1)).setRegistryName("schmatches", "schmatch"));
         }
     }
-    
+
 
 }
