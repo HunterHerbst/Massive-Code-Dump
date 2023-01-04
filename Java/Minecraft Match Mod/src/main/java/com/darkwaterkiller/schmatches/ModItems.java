@@ -14,7 +14,7 @@ public class ModItems {
 
     public static final RegistryObject<Item> MATCH = ITEMS.register("match",
         () -> 
-            new Item(new Item.Properties()
+            new Match(new Item.Properties()
                 .group(ItemGroup.TOOLS)
                 .maxStackSize(16)
                 .rarity(Rarity.COMMON)
