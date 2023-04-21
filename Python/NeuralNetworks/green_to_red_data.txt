@@ -1,0 +1,4 @@
+width: 1080
+height: 1080
+bit_depth: 134348800
+color_type: 6517499
